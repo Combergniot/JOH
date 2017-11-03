@@ -1,0 +1,38 @@
+#container {
+    width: 100%;
+    margin: auto;
+}
+
+
+.page-header {
+    text-align: center;
+    margin-top: 50px;
+}
+
+input[type=text] {
+    color: black;
+}
+
+div .row {
+    width: 100%;
+    margin: auto;
+}
+
+.col-sm-4 .description {
+    position: absolute;
+    display: block;
+    margin: 10px;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: block;
+    top: 0;
+    text-align: center;
+
+}
+
+.col-sm-4:hover .description {
+    opacity: 1;
+    cursor: pointer;
+    color: rgb(0, 0, 51);
+}
