@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Raport: Fort IV</title>
+        <title>Error</title>
         <jsp:include page="stylesheets.jsp"></jsp:include>
         </head>
         <body>

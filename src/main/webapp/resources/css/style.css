@@ -45,12 +45,13 @@ h6 {
 
 /*LOGIN PAGE*/
 
+/*TODO - co z obrazkiem w tle?*/
+
 .container-fluid#loginBgWrapper{
     height: 100vh;
-    /*background-image: url(/resources/img/kopernik-min.jpg);*/
-    background: -webkit-radial-gradient(center, ellipse cover, rgba(72, 85, 99,0.2) 100%, rgba(41, 50, 60,0.2) 100%), url('/resources/img/torun-min.jpg');
-    background-size: cover;
-    background-position: center;
+    /*background: -webkit-radial-gradient(center, ellipse cover, rgba(72, 85, 99,0.2) 100%, rgba(41, 50, 60,0.2) 100%);*/
+    background-size: auto;
+    background: url('/resources/img/spider.png') no-repeat 50px 100px;
     margin-top: -34px;
     
 
@@ -87,9 +88,10 @@ nav#mainNav div#navContainer {
 }
 
 nav#mainNav a.navbar-brand {
-    background-image: url(/resources/img/logo.png);
-    height: 87px;
-    width: 235px;
+    background-image: url('/resources/img/logo_us.png');
+    background-size: cover;
+    height: 80px;
+    width: 120px;
     margin-top: 2px;
 }
 
@@ -134,7 +136,7 @@ nav#mainNav div#navContainer ul li a.dropdown-item {
 }
 
 nav#mainNav div#navContainer ul div#dropMenu {
-    background-color: #ec9641;
+    background-color: #122b40;
     text-align: center;
     min-width: 100px;
     margin-top: -1px;
@@ -162,10 +164,6 @@ nav#mainNav div#navContainer ul div#dropMenu a:hover {
     width: 92%;
 }
 
-
-/*.form-group.tripdates{
-    margin-bottom: 50px;
-}*/
 
 legend{
     margin-top: 20px;

@@ -12,18 +12,18 @@
             
         </head>
         <body>
-        <jsp:include page="navbar.jsp"></jsp:include>
+        <%--<jsp:include page="navbar.jsp"></jsp:include>--%>
         <div class="container-fluid" id="loginBgWrapper">
-            
+
         
             <div class="container mainContainer">
                 <div class="loginContainer text-center">
                     <div class="row">
-                        <h2>Wprowadź dane logowania</h2>  
+                        <h2>Zaloguj się</h2>
                     </div>
                   
                 <c:if test="${param.error ne null}">
-                    <div>Nieprawidłowe hasło.</div>
+                    <div>Nieprawidłowe hasło</div>
                 </c:if>
                     <div class="row text-center">
                         <div class="form-wrapper col-lg-12 col-md-12 col-sm-12">

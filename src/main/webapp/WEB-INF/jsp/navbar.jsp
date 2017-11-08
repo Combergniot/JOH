@@ -14,7 +14,10 @@
         <div id="navContainer" class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1"
+                        aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -28,27 +31,25 @@
 
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="addTrip">Dodaj wycieczkę</a></li>
+                    <li><a href="/mainForm">Wygeneruj raport</a></li>
                     <li class="nav-item dropdown noselect" id="navDropdown">
                         <a id="dropp" class="nav-link dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Raporty <i id="reportCaret" class="fa fa-caret-down" aria-hidden="true"></i></a>
                         <div id="dropMenu" class="dropdown-menu" aria-labelledby="dropdown">
-                            <a class="dropdown-item" href="/sightseeings">Zwiedzania</a>
-                            <a class="dropdown-item" href="/gesia">Posiłki</a>
-                            <a class="dropdown-item" href="/fort">Fort IV</a>
-                            <a class="dropdown-item" href="/olbracht">Olbracht</a>
-                            <a class="dropdown-item" href="/planetarium">Planetarium</a>
-                            <a class="dropdown-item" href="/gingerbread">Pierniki</a>
-                            <a class="dropdown-item" href="/mlyny">Młyny Wiedzy</a>
-                            <a class="dropdown-item" href="/castle">Zamek</a>
-                            <a class="dropdown-item" href="/cruise">Rejs po Wiśle</a>
-                            <a class="dropdown-item" href="/additional">Niestandardowe</a>
+                            <a class="dropdown-item" href="/main_report">Raport główny</a>
+                            <a class="dropdown-item" href="/goldenline">GoldenLine</a>
+                            <a class="dropdown-item" href="/pracujpl">Pracuj.pl</a>
+                            <a class="dropdown-item" href="/olx">OLX</a>
+                            <a class="dropdown-item" href="/gratka">praca.gratka.pl</a>
+                            <a class="dropdown-item" href="/gazetapraca">GazetaPraca</a>
+                            <a class="dropdown-item" href="/moneypl">Money.pl</a>
+
                         </div>
                     </li>
                     <li><a href="#about">Ustawienia</a></li>
-<!--
-                    <li><a href="#team">Team</a></li>
-                    <li><a href="#contact">Contact</a></li>
--->
+
+                    <%--<li><a href="#team">Team</a></li>--%>
+                    <li><a href="#contact">Kontakt</a></li>
+
 
                 </ul>
             </div>

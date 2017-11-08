@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.copernicana</groupId>
-    <artifactId>tripregistry</artifactId>
+    <groupId>JOH</groupId>
+    <artifactId>JobOfferHunter</artifactId>
     <version>0.1.35</version>
     <packaging>jar</packaging>
 
-    <name>RejestrWycieczek</name>
-    <description>Demo_copernicana</description>
+    <name>Job Offer Hunter</name>
+    <description>Scrapper ofert pracy</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -67,13 +67,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <!--            <scope>runtime</scope>-->
-        </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-devtools</artifactId>-->
-        <!--</dependency>-->
+         </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
