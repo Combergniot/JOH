@@ -1,11 +1,11 @@
 
 package com.gus.jobofferhunter.repository;
 
-import com.gus.jobofferhunter.model.offer.JobOffer_GazetaPraca;
+import com.gus.jobofferhunter.model.offer.GazetaPraca;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GazetaPracaRepository extends CrudRepository<JobOffer_GazetaPraca, Long> {
+public interface GazetaPracaRepository extends CrudRepository<GazetaPraca, Long> {
     
 }

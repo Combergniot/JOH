@@ -1,6 +1,8 @@
 package com.gus.jobofferhunter.controller;
 
 import com.gus.jobofferhunter.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ReportController {
+
+    protected final Logger logger = LoggerFactory.getLogger(ReportController.class);
 
     @Autowired
     private JobOfferRepository jobOfferRepository;
@@ -23,6 +27,9 @@ public class ReportController {
     private OlxRepository olxRepository;
     @Autowired
     private PracujPlRepository pracujPlRepository;
+    @Autowired
+    private PracaGovPlRepository pracaGovPlRepository;
+
 
 
     @GetMapping("/main_report")
@@ -32,7 +39,6 @@ public class ReportController {
     }
 
 
-    //Prawdopodobnie do ukrycia - zostanie jeden raport z wyżywieniem dla wszystkich
     @GetMapping("/goldenline")
     public String getGoldenLineReport(Model model) {
         model.addAttribute("goldenLineOffers", goldenLineRepository.findAll());
@@ -67,6 +73,12 @@ public class ReportController {
     public String getMoneyPlReport(Model model) {
         model.addAttribute("moneyPlOffers", moneyPlRepository.findAll());
         return "money";
+    }
+
+    @GetMapping("/cbop")
+    public String getCbopReport(Model model) {
+        model.addAttribute("cbopOffers", moneyPlRepository.findAll());
+        return "cbop";
     }
 
 

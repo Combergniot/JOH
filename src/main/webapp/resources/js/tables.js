@@ -23,8 +23,6 @@ $(document).ready(function () {
                             "next": "Następna",
                             "last": "Ostatnia"
                         }
-
-
                     }
                 }
                 );
@@ -33,8 +31,6 @@ $(document).ready(function () {
                         .appendTo('#example_wrapper .col-md-6:eq(0)');
 
                 $('.dt-button').addClass('btn btn-secondary');
-
-
 
             });
 

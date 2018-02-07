@@ -14,15 +14,23 @@
             <table class="table table-striped table-bordered" id="example" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Data dodania</th>
-                        <th>Tytuł ogłoszenia</th>
+                        <th>Data ogłoszenia</th>
                         <th>Stanowisko</th>
-                        <th>Miejsce pracy</th>
-                        <th>Województwo</th>
+                        <th>Kraj</th>
+                        <th>Region</th>
+                        <th>Lokalizacja</th>
+                        <th>Pracodawca</th>
                         <th>Branża</th>
-                        <th>Data pobrania</th>
+                        <th>Typ stanowiska</th>
+                        <th>Rodzaj pracy</th>
+                        <th>Forma zatrudnienia</th>
+                        <th>Minimalne wykształcenie</th>
+                        <th>Dodatkowe opcje</th>
+                        <th>Wynagrodzenie</th>
+                        <th>Gazeta</th>
                         <th>Treść oferty</th>
                         <th>URL</th>
+                        <th>Data przeszukania</th>
                     </tr>
                 </thead>
 
@@ -31,15 +39,24 @@
                 <tbody>
                     <c:forEach var="gratkaOffer" items="${gratkaOffers}">
                         <tr>
-                            <td>${gratkaOffer.jobOffer.dateAdded}</td>
-                            <td>${gratkaOffer.jobOffer.tittle}</td>
-                            <td>${gratkaOffer.jobOffer.position}</td>
-                            <td>${gratkaOffer.jobOffer.workplace}</td>
-                            <td>${gratkaOffer.jobOffer.province}</td>
-                            <td>${gratkaOffer.jobOffer.branch}</td>
-                            <td>${gratkaOffer.jobOffer.dataSearch}</td>
-                            <td>${gratkaOffer.jobOffer.description}</td>
-                            <td>${gratkaOffer.jobOffer.url}</td>
+
+                            <td>${gratkaOffer.dateAdded}</td>
+                            <td>${gratkaOffer.position}</td>
+                            <td>${gratkaOffer.country}</td>
+                            <td>${gratkaOffer.workplace}</td>
+                            <td>${gratkaOffer.province}</td>
+                            <td>${gratkaOffer.employer}</td>
+                            <td>${gratkaOffer.branch}</td>
+                            <td>${gratkaOffer.jobType}</td>
+                            <td>${gratkaOffer.typeOfWork}</td>
+                            <td>${gratkaOffer.formOfEmployment}</td>
+                            <td>${gratkaOffer.requiredEducation}</td>
+                            <td>${gratkaOffer.additionalOptions}</td>
+                            <td>${gratkaOffer.salary}</td>
+                            <td>${gratkaOffer.offerFromNewspapper}</td>
+                            <td>${gratkaOffer.description}</td>
+                            <td>${gratkaOffer.url}</td>
+                            <td>${gratkaOffer.dataSearch}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

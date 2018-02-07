@@ -6,6 +6,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("goldenline")
-public class JobOffer_GoldenLine extends JobOffer {
+@DiscriminatorValue("gazetapraca")
+public class GazetaPraca extends JobOffer {
 }

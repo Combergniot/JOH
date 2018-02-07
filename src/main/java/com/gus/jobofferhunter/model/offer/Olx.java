@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("olx")
-public class JobOffer_Olx extends JobOffer {
+public class Olx extends JobOffer {
 
 
 }

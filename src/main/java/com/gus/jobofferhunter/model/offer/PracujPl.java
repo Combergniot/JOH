@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("pracujpl")
-public class JobOffer_PracujPl extends JobOffer {
+public class PracujPl extends JobOffer {
 
 
 

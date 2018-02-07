@@ -5,7 +5,8 @@ import com.gus.jobofferhunter.model.JobOffer;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+
 @Entity
-@DiscriminatorValue("gazetapraca")
-public class JobOffer_GazetaPraca extends JobOffer {
+@DiscriminatorValue("moneypl")
+public class MoneyPl extends JobOffer{
 }

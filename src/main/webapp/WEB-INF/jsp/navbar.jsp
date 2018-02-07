@@ -40,6 +40,7 @@
                             <a class="dropdown-item" href="/pracujpl">Pracuj.pl</a>
                             <a class="dropdown-item" href="/olx">OLX</a>
                             <a class="dropdown-item" href="/gratka">praca.gratka.pl</a>
+                            <a class="dropdown-item" href="/cbop">CBOP</a>
                             <a class="dropdown-item" href="/gazetapraca">GazetaPraca</a>
                             <a class="dropdown-item" href="/moneypl">Money.pl</a>
 
