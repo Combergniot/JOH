@@ -22,6 +22,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
+
       </button>
                 <a class="navbar-brand" href="#"></a>
             </div>
@@ -46,10 +47,8 @@
 
                         </div>
                     </li>
-                    <li><a href="#about">Ustawienia</a></li>
-
-                    <%--<li><a href="#team">Team</a></li>--%>
-                    <li><a href="#contact">Kontakt</a></li>
+                    <li><a href="#">O programie</a></li>
+                    <li><a href="logout">Wyloguj się</a></li>
 
 
                 </ul>

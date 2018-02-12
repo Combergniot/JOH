@@ -2,7 +2,7 @@ package com.gus.jobofferhunter.model.offer;
 
 import javax.persistence.*;
 
-// Na razie bez rozszerzania joboffer;
+
 @Entity
 @DiscriminatorValue("gratka")
 public class Gratka {

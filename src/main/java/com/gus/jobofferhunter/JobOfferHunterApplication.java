@@ -37,13 +37,13 @@ public class JobOfferHunterApplication implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
-        Role userRole = roleRepository.save(new Role("USER"));
-//        userRepository.save(new User("admin", bCryptPasswordEncoder.encode("admin"),
-//                Sets.newHashSet(adminRole)));
-        userRepository.save(new User("test", bCryptPasswordEncoder.encode("test"),
-                Sets.newHashSet(userRole)));
-        System.out.println(userRepository.findByUsername("test"));
-//        System.out.println(roleRepository.findRolesByUsername("admin"))
+//        Role userRole = roleRepository.save(new Role("USER"));
+////        userRepository.save(new User("admin", bCryptPasswordEncoder.encode("admin"),
+////                Sets.newHashSet(adminRole)));
+//        userRepository.save(new User("test2", bCryptPasswordEncoder.encode("test2"),
+//                Sets.newHashSet(userRole)));
+//        System.out.println(userRepository.findByUsername("test2"));
+////        System.out.println(roleRepository.findRolesByUsername("admin"))
 
 
 //        final String USER_AGENT =

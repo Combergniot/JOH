@@ -26,7 +26,7 @@ public class JobOffer {
     @Column
     private String dataSearch; //data przeszukania
     @Column
-    @Lob //w SQL - będzie to TEXT
+    @Lob
     private String description; //treść ogłoszenia
     @Column
     @Lob

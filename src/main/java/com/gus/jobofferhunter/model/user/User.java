@@ -3,9 +3,6 @@ package com.gus.jobofferhunter.model.user;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by Marcin on 2017-07-05.
- */
 @Entity
 @Table(name = "users")
 public class User {
