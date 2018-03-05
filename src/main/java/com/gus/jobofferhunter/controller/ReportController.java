@@ -13,8 +13,8 @@ public class ReportController {
 
     protected final Logger logger = LoggerFactory.getLogger(ReportController.class);
 
-    @Autowired
-    private JobOfferRepository jobOfferRepository;
+//    @Autowired
+//    private JobOfferRepository jobOfferRepository;
     @Autowired
     private GazetaPracaRepository gazetaPracaRepository;
     @Autowired
@@ -28,16 +28,14 @@ public class ReportController {
     @Autowired
     private PracujPlRepository pracujPlRepository;
     @Autowired
-    private PracaGovPlRepository pracaGovPlRepository;
+    private LinkedinRepository linkedinRepository;
 
 
-
-    @GetMapping("/main_report")
-    public String getMainReport(Model model) {
-        model.addAttribute("jobOffers", jobOfferRepository.findAll());
-        return "mainReport";
-    }
-
+//    @GetMapping("/main_report")
+//    public String getMainReport(Model model) {
+//        model.addAttribute("jobOffers", jobOfferRepository.findAll());
+//        return "mainReport";
+//    }
 
     @GetMapping("/goldenline")
     public String getGoldenLineReport(Model model) {
@@ -49,6 +47,12 @@ public class ReportController {
     public String getGratkaReport(Model model) {
         model.addAttribute("gratkaOffers", gratkaRepository.findAll());
         return "gratka";
+    }
+
+    @GetMapping("/linkedin")
+    public String getLinkedinReport(Model model) {
+        model.addAttribute("linkedinOffers", linkedinRepository.findAll());
+        return "linkedin";
     }
 
     @GetMapping("/gazetapraca")
@@ -80,8 +84,6 @@ public class ReportController {
         model.addAttribute("cbopOffers", moneyPlRepository.findAll());
         return "cbop";
     }
-
-
 
 
 }

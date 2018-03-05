@@ -1,11 +1,17 @@
 package com.gus.jobofferhunter.model.offer;
 
-import com.gus.jobofferhunter.model.JobOffer;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
+
+@Data
+@AllArgsConstructor
 
 @Entity
 @DiscriminatorValue("gazetapraca")
-public class GazetaPraca extends JobOffer {
+public class GazetaPraca extends JobOffer  {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 }

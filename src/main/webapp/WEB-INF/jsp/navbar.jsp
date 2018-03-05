@@ -36,12 +36,12 @@
                     <li class="nav-item dropdown noselect" id="navDropdown">
                         <a id="dropp" class="nav-link dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Raporty <i id="reportCaret" class="fa fa-caret-down" aria-hidden="true"></i></a>
                         <div id="dropMenu" class="dropdown-menu" aria-labelledby="dropdown">
-                            <a class="dropdown-item" href="/main_report">Raport główny</a>
+                         <!--   <a class="dropdown-item" href="/linkedin">Linkedin</a> -->
                             <a class="dropdown-item" href="/goldenline">GoldenLine</a>
                             <a class="dropdown-item" href="/pracujpl">Pracuj.pl</a>
                             <a class="dropdown-item" href="/olx">OLX</a>
                             <a class="dropdown-item" href="/gratka">praca.gratka.pl</a>
-                            <a class="dropdown-item" href="/cbop">CBOP</a>
+                         <!--  <a class="dropdown-item" href="/cbop">CBOP</a> -->
                             <a class="dropdown-item" href="/gazetapraca">GazetaPraca</a>
                             <a class="dropdown-item" href="/moneypl">Money.pl</a>
 

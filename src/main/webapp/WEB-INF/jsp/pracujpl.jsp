@@ -15,28 +15,28 @@
                 <thead>
                     <tr>
                         <th>Data dodania</th>
-                        <th>Tytuł ogłoszenia</th>
                         <th>Stanowisko</th>
+                        <th>Rodzaj pracy</th>
                         <th>Miejsce pracy</th>
-                        <th>Województwo</th>
+                        <th>Pracodawca</th>
                         <th>Branża</th>
+                        <th>Oferta ważna do:</th>
                         <th>Data pobrania</th>
-                        <th>Treść oferty</th>
                         <th>URL</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="pracujPlOffer" items="${pracujPlOffers}">
                         <tr>
-                            <td>${pracujPlOffer.jobOffer.dateAdded}</td>
-                            <td>${pracujPlOffer.jobOffer.tittle}</td>
-                            <td>${pracujPlOffer.jobOffer.position}</td>
-                            <td>${pracujPlOffer.jobOffer.workplace}</td>
-                            <td>${pracujPlOffer.jobOffer.province}</td>
-                            <td>${pracujPlOffer.jobOffer.branch}</td>
-                            <td>${pracujPlOffer.jobOffer.dataSearch}</td>
-                            <td>${pracujPlOffer.jobOffer.description}</td>
-                            <td>${pracujPlOffer.jobOffer.url}</td>
+                            <td>${pracujPlOffer.datePublished}</td>
+                            <td>${pracujPlOffer.position}</td>
+                            <td>${pracujPlOffer.employmentType}</td>
+                            <td>${pracujPlOffer.workplace}</td>
+                            <td>${pracujPlOffer.employer}</td>
+                            <td>${pracujPlOffer.branch}</td>
+                            <td>${pracujPlOffer.validThrough}</td>
+                            <td>${pracujPlOffer.dataSearch}</td>
+                            <td>${pracujPlOffer.url}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

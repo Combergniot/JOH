@@ -15,29 +15,33 @@
                 <thead>
                     <tr>
                         <th>Data dodania</th>
-                        <th>Tytuł ogłoszenia</th>
                         <th>Stanowisko</th>
                         <th>Miejsce pracy</th>
-                        <th>Województwo</th>
                         <th>Branża</th>
+                        <th>Forma zatrudnienia</th>
+                        <th>Typ kontraktu</th>
+                        <th>Wynagrodzenie</th>
+                        <th>Wymagania</th>
                         <th>Data pobrania</th>
                         <th>Treść oferty</th>
                         <th>URL</th>
                     </tr>
                 </thead>
-                <%--todo - pewnie klasy jobOffer trzeba podmienic --%>
+
                 <tbody>
                     <c:forEach var="olxOffer" items="${olxOffers}">
                         <tr>
-                            <td>${olxOffer.jobOffer.dateAdded}</td>
-                            <td>${olxOffer.jobOffer.tittle}</td>
-                            <td>${olxOffer.jobOffer.position}</td>
-                            <td>${olxOffer.jobOffer.workplace}</td>
-                            <td>${olxOffer.jobOffer.province}</td>
-                            <td>${olxOffer.jobOffer.branch}</td>
-                            <td>${olxOffer.jobOffer.dataSearch}</td>
-                            <td>${olxOffer.jobOffer.description}</td>
-                            <td>${olxOffer.jobOffer.url}</td>
+                            <td>${olxOffer.datePublished}</td>
+                            <td>${olxOffer.position}</td>
+                            <td>${olxOffer.workplace}</td>
+                            <td>${olxOffer.branch}</td>
+                            <td>${olxOffer.formOfEmployment}</td>
+                            <td>${olxOffer.contractType}</td>
+                            <td>${olxOffer.salary}</td>
+                            <td>${olxOffer.required}</td>
+                            <td>${olxOffer.dataSearch}</td>
+                            <td>${olxOffer.description}</td>
+                            <td>${olxOffer.url}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

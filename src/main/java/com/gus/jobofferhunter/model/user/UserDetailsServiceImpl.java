@@ -12,10 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
-/**
- * Created by Marcin on 2017-07-05.
- */
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

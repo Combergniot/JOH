@@ -2,6 +2,7 @@ package com.gus.jobofferhunter.model.offer;
 
 import javax.persistence.*;
 
+//TODO przemodelować z rozszerzeniem JobOffer;
 
 @Entity
 @DiscriminatorValue("gratka")
@@ -41,7 +42,7 @@ public class Gratka {
     @Column
     private String dataSearch; //data przeszukania
     @Column
-    @Lob //w SQL - będzie to TEXT
+    @Lob
     private String description; //treść ogłoszenia
     @Column
     @Lob

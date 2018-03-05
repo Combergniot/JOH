@@ -1,12 +1,18 @@
 package com.gus.jobofferhunter.model.offer;
 
-import com.gus.jobofferhunter.model.JobOffer;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
+
+@Data
+@AllArgsConstructor
 
 @Entity
 @DiscriminatorValue("goldenline")
-public class GoldenLine extends JobOffer {
+public class GoldenLine extends JobOffer{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
 }

@@ -28,13 +28,9 @@
                         <th>Dodatkowe opcje</th>
                         <th>Wynagrodzenie</th>
                         <th>Gazeta</th>
-                        <th>Treść oferty</th>
-                        <th>URL</th>
                         <th>Data przeszukania</th>
                     </tr>
                 </thead>
-
-                <%--todo--%>
 
                 <tbody>
                     <c:forEach var="gratkaOffer" items="${gratkaOffers}">
@@ -54,8 +50,6 @@
                             <td>${gratkaOffer.additionalOptions}</td>
                             <td>${gratkaOffer.salary}</td>
                             <td>${gratkaOffer.offerFromNewspapper}</td>
-                            <td>${gratkaOffer.description}</td>
-                            <td>${gratkaOffer.url}</td>
                             <td>${gratkaOffer.dataSearch}</td>
                         </tr>
                     </c:forEach>

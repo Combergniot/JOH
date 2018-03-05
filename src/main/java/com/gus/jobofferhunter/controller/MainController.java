@@ -18,7 +18,6 @@ public class MainController {
         return "loginForm";
     }
 
-
     @GetMapping("/mainForm")
     public String getMainForm(Model model) {
 

@@ -29,8 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login")      
-                .permitAll()     
+                .formLogin().loginPage("/login")
+                .permitAll()
                 .and()
                 .formLogin().defaultSuccessUrl("/mainForm")
                 .and()
@@ -39,9 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/error")
                 .and()
                 .csrf().disable()
-                ;
-        
-       http.headers().frameOptions().disable();
+        ;
+
+        http.headers().frameOptions().disable();
 
     }
 
