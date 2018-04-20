@@ -2,6 +2,7 @@
 .gitignore
 .idea/
 JobOfferHunter.iml
-src/main/java/com/gus/jobofferhunter/data/
+
 src/main/java/com/gus/jobofferhunter/repository/JobOfferRepository.java
 target/
+!/src/main/java/com/gus/jobofferhunter/data/

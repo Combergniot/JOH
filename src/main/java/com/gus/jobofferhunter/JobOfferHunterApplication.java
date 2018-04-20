@@ -1,9 +1,6 @@
 package com.gus.jobofferhunter;
 
-import com.gus.jobofferhunter.data.GratkaDataCollector;
-import com.gus.jobofferhunter.data.MoneyPlDataCollector;
-import com.gus.jobofferhunter.data.OlxDataCollector;
-import com.gus.jobofferhunter.data.PracujPlDataCollector;
+import com.gus.jobofferhunter.data.*;
 import com.gus.jobofferhunter.model.user.RoleRepository;
 import com.gus.jobofferhunter.model.user.UserRepository;
 import org.slf4j.Logger;
@@ -33,9 +30,15 @@ public class JobOfferHunterApplication implements CommandLineRunner {
     OlxDataCollector olxDataCollector;
     @Autowired
     PracujPlDataCollector pracujPlDataCollector;
+    @Autowired
+    GoldenLineDataCollector goldenLineDataCollector;
+    @Autowired
+    LinkedinDataCollector linkedinDataCollector;
+    @Autowired
+    JobsPlDataCollector jobsPlDataCollector;
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(JobOfferHunterApplication.class, args);
 
     }
@@ -51,9 +54,8 @@ public class JobOfferHunterApplication implements CommandLineRunner {
 //                Sets.newHashSet(userRole)));
 //        System.out.println(userRepository.findByUsername("test2"));
 ////        System.out.println(roleRepository.findRolesByUsername("admin"))
-//
 
-//        pracujPlDataCollector.downloadAll();
-
+        gratkaDataCollector.collectStructure();
+        gratkaDataCollector.collectLinks();
     }
 }

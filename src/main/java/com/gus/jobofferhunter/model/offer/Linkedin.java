@@ -24,4 +24,6 @@ public class Linkedin extends JobOffer {
     @Lob
     private String description;
 
+    public Linkedin() {
+    }
 }

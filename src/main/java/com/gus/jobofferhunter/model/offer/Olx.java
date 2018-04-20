@@ -37,6 +37,9 @@ public class Olx extends JobOffer  {
     @Lob
     private String url;
 
+    public Olx() {
+    }
+
     public Long getId() {
         return id;
     }

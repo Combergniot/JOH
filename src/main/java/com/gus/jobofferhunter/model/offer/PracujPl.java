@@ -29,6 +29,9 @@ public class PracujPl extends JobOffer {
     @Lob
     private String url;
 
+    public PracujPl() {
+    }
+
     public Long getId() {
         return id;
     }

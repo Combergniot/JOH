@@ -13,8 +13,6 @@ public class ReportController {
 
     protected final Logger logger = LoggerFactory.getLogger(ReportController.class);
 
-//    @Autowired
-//    private JobOfferRepository jobOfferRepository;
     @Autowired
     private GazetaPracaRepository gazetaPracaRepository;
     @Autowired
@@ -84,6 +82,8 @@ public class ReportController {
         model.addAttribute("cbopOffers", moneyPlRepository.findAll());
         return "cbop";
     }
+
+
 
 
 }
