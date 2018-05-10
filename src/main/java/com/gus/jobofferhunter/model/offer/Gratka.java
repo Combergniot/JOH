@@ -5,6 +5,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+//todo Valid URL w liscie linkow - do poprawy
+
 @Data
 @AllArgsConstructor
 
@@ -20,7 +22,7 @@ public class Gratka extends JobOffer{
 
     private String typeOfWork; //rodzaj pracy
 
-    private String jobType; //typ stanowiska
+    private String positionLevel; //typ stanowiska
 
     private String salary;
 
@@ -32,6 +34,78 @@ public class Gratka extends JobOffer{
     @Lob
     private String url;
 
+    public Gratka() {
+    }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public String getTypeOfWork() {
+        return typeOfWork;
+    }
+
+    public void setTypeOfWork(String typeOfWork) {
+        this.typeOfWork = typeOfWork;
+    }
+
+    public String getPositionLevel() {
+        return positionLevel;
+    }
+
+    public void setPositionLevel(String positionLevel) {
+        this.positionLevel = positionLevel;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+
+    public String getDataId() {
+        return dataId;
+    }
+
+    public void setDataId(String dataId) {
+        this.dataId = dataId;
+    }
+
+    public String getAdditionalOptions() {
+        return additionalOptions;
+    }
+
+    public void setAdditionalOptions(String additionalOptions) {
+        this.additionalOptions = additionalOptions;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

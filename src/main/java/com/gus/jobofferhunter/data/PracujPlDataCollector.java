@@ -52,8 +52,6 @@ public class PracujPlDataCollector extends DataCollectorSettings {
     /**
      * Collects links to all single offers from the portal "pracuj.pl".
      */
-
-//    TODO - sprawdzic czy usuwanie duplikatow dziala poprawnie.
     public void collectLinks() throws Exception {
         log.info("The links to job offers are being downloaded...");
         for (int i = 0; i < paginationList.size(); i++) {
@@ -72,7 +70,6 @@ public class PracujPlDataCollector extends DataCollectorSettings {
                         .attr("abs:href");
                 jobOffersList.add(link);
             }
-       // System.out.println(jobOffersList.get(i));
         }
         removeDuplicatesFromList();
         log.info("Links to all job offers from pracuj.pl has been downloaded!");
@@ -274,13 +271,6 @@ public class PracujPlDataCollector extends DataCollectorSettings {
             e.printStackTrace();
             return "Brak danych";
         }
-    }
-
-    private List removeDuplicatesFromList(){
-        paginationSet.addAll(jobOffersList);
-        jobOffersList.clear();
-        jobOffersList.addAll(paginationSet);
-        return jobOffersList;
     }
 }
 

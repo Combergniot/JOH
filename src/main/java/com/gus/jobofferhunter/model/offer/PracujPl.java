@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+// TODO - refraktor employmentType na positionLevel
 @Data
 @AllArgsConstructor
 

@@ -103,9 +103,9 @@
 //                gratka.setWorkplace(searchForWorkplace(element));
 //                gratka.setEmployer(searchForEmployer(element));
 //                gratka.setBranch(searchForBranch(element));
-//                gratka.setJobType(searchForJobType(element));
+//                gratka.setPositionLevel(searchForJobType(element));
 //                gratka.setTypeOfWork(searchForTypeOfWork(element));
-//                gratka.setFormOfEmployment(searchForFormOfEmployment(element));
+//                gratka.setContractType(searchForFormOfEmployment(element));
 //                gratka.setRequiredEducation(searchForRequiredEducation(element));
 //                gratka.setSalary(searchForSalary(element));
 //                gratka.setOfferFromNewspapper(searchForOfferFromNewspapper(element));

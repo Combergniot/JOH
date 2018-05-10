@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO - oficjalny mail do linkedin
+//TODO - Czekamy na odpowiedz z LinkeDin'a dot. możliwości scapowania
 
 @Component
 public class LinkedinDataCollector extends DataCollectorSettings {

@@ -137,11 +137,11 @@
 //        this.branch = branch;
 //    }
 //
-//    public String getJobType() {
+//    public String getPositionLevel() {
 //        return jobType;
 //    }
 //
-//    public void setJobType(String jobType) {
+//    public void setPositionLevel(String jobType) {
 //        this.jobType = jobType;
 //    }
 //
@@ -153,11 +153,11 @@
 //        this.typeOfWork = typeOfWork;
 //    }
 //
-//    public String getFormOfEmployment() {
+//    public String getContractType() {
 //        return formOfEmployment;
 //    }
 //
-//    public void setFormOfEmployment(String formOfEmployment) {
+//    public void setContractType(String formOfEmployment) {
 //        this.formOfEmployment = formOfEmployment;
 //    }
 //

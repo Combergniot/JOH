@@ -6,6 +6,8 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 
+//TODO Silne zabezpieczenia
+
 @Data
 @AllArgsConstructor
 
@@ -18,7 +20,7 @@ public class Linkedin extends JobOffer {
     private Long id;
 
     private String branch;
-    private String formOfEmployement;
+    private String formOfEmployment;
     private String experience;
     private String duties;
     @Lob

@@ -3,6 +3,7 @@ package com.gus.jobofferhunter;
 import com.gus.jobofferhunter.data.*;
 import com.gus.jobofferhunter.model.user.RoleRepository;
 import com.gus.jobofferhunter.model.user.UserRepository;
+import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,10 @@ public class JobOfferHunterApplication implements CommandLineRunner {
     LinkedinDataCollector linkedinDataCollector;
     @Autowired
     JobsPlDataCollector jobsPlDataCollector;
+    @Autowired
+    AllTheJobsCollector allTheJobsCollector;
+    @Autowired
+    GumtreeCollector gumtreeCollector;
 
 
     public static void main(String[] args) {
@@ -46,7 +51,6 @@ public class JobOfferHunterApplication implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
-
 //        Role userRole = roleRepository.save(new Role("USER"));
 ////        userRepository.save(new User("admin", bCryptPasswordEncoder.encode("admin"),
 ////                Sets.newHashSet(adminRole)));
@@ -55,7 +59,7 @@ public class JobOfferHunterApplication implements CommandLineRunner {
 //        System.out.println(userRepository.findByUsername("test2"));
 ////        System.out.println(roleRepository.findRolesByUsername("admin"))
 
-        gratkaDataCollector.collectStructure();
-        gratkaDataCollector.collectLinks();
+    gratkaDataCollector.downloadAll();
+
     }
 }

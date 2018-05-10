@@ -1,7 +1,10 @@
 package com.gus.jobofferhunter.data;
 
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public abstract class DataCollectorSettings {
 
@@ -14,5 +17,13 @@ public abstract class DataCollectorSettings {
     protected List<String> jobOffersList = new ArrayList<>();
     protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     protected Set<String> paginationSet = new HashSet<>();
+
+
+    protected List removeDuplicatesFromList() {
+        paginationSet.addAll(jobOffersList);
+        jobOffersList.clear();
+        jobOffersList.addAll(paginationSet);
+        return jobOffersList;
+    }
 
 }

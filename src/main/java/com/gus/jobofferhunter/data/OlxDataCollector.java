@@ -241,12 +241,6 @@ public class OlxDataCollector extends DataCollectorSettings {
         return managerialPositon;
     }
 
-    private List removeDuplicatesFromList(){
-        paginationSet.addAll(jobOffersList);
-        jobOffersList.clear();
-        jobOffersList.addAll(paginationSet);
-        return jobOffersList;
-    }
 
 }
 
