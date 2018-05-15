@@ -41,6 +41,10 @@ public class JobOfferHunterApplication implements CommandLineRunner {
     AllTheJobsCollector allTheJobsCollector;
     @Autowired
     GumtreeCollector gumtreeCollector;
+    @Autowired
+    CareerJetCollector careerJetCollector;
+    @Autowired
+    InfoPracaCollector infoPracaCollector;
 
 
     public static void main(String[] args) {
@@ -59,7 +63,7 @@ public class JobOfferHunterApplication implements CommandLineRunner {
 //        System.out.println(userRepository.findByUsername("test2"));
 ////        System.out.println(roleRepository.findRolesByUsername("admin"))
 
-    gratkaDataCollector.downloadAll();
+    infoPracaCollector.downloadAll();
 
     }
 }

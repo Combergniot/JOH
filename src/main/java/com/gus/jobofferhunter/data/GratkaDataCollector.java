@@ -93,12 +93,14 @@ public class GratkaDataCollector extends DataCollectorSettings {
 
             Element content = linkCollection.getElementById("leftColumn");
             Elements url = content.select("a.teaser");
+//            Elements datePosted = content.select("ul.teaser__info");
             for (Element element : url) {
                 String link = element.attr("abs:href");
                 jobOffersList.add(link);
                 System.out.println(link);
             }
         }
+//        TODO - oficjalnie 13162, zostało 9996. Sprawdzic czy to nie zbyt restrykcyjne podejscie
         removeDuplicatesFromList();
         log.info("Links to all job offers has been downloaded!");
     }
@@ -140,7 +142,6 @@ public class GratkaDataCollector extends DataCollectorSettings {
             log.info("The data from single offer was downloaded...");
         }
     }
-
 
     public void test() throws Exception {
         Document singleOffer = Jsoup.connect("https://gratka.pl/praca/frezer-cnc-wynagrodzenie-nawet-5500-zl/ob/3671707")

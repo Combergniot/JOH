@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Component
 public class AllTheJobsCollector extends DataCollectorSettings {
@@ -47,6 +46,7 @@ public class AllTheJobsCollector extends DataCollectorSettings {
 //        System.out.println(paginationList.toString());
     }
 
+    //TODO - To cholerstwo nie pobierze więcej niz 2000tys linków, ograniczenie przy paginacji...
     public void collectLinks() throws Exception {
         fillPaginationList();
         for (int i = 0; i < paginationList.size(); i++) {
@@ -64,17 +64,17 @@ public class AllTheJobsCollector extends DataCollectorSettings {
                         .select("h3.margin-bottom-clear>a")
                         .attr("abs:href");
                 jobOffersList.add(link);
-                System.out.println(link);
+                System.out.println("NR: " +jobOffersList.size() +": "+ link);
             }
         }
         removeDuplicatesFromList();
+        System.out.println(jobOffersList.size());
     }
-
 
     public void collectData() throws Exception {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < jobOffersList.size(); i++) {
-            Thread.sleep(2000 + (long) Math.random() * 2000);
+//            Thread.sleep(2000 + (long) Math.random() * 2000);
             Document singleOffer = Jsoup.connect(jobOffersList.get(i))
                     .proxy("10.51.55.34", 8080)
                     .userAgent(USER_AGENT)
@@ -139,6 +139,7 @@ public class AllTheJobsCollector extends DataCollectorSettings {
             collectData();
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println(jobOffersList.size());
 
         }
     }

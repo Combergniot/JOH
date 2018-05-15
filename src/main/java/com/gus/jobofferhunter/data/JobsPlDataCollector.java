@@ -68,6 +68,30 @@ public class JobsPlDataCollector extends DataCollectorSettings {
         log.info("Page structure downloaded!");
     }
 
+    private String findLastPaginationNumber() throws Exception {
+        Document paginationPage = Jsoup.connect("https://www.jobs.pl/oferty")
+                .proxy("10.51.55.34", 8080)
+                .userAgent(USER_AGENT)
+                .referrer(REFERRER)
+                .timeout(12000)
+                .followRedirects(true)
+                .get();
+
+        Elements pagination = paginationPage
+                .select("div.pagination >p");
+        String lastPaginationNumber = pagination.select("span.empty").next().text();
+        System.out.println(lastPaginationNumber);
+        return lastPaginationNumber;
+    }
+
+    private void fillPaginationList() throws Exception {
+        int lastPaginationNumber = Integer.parseInt(findLastPaginationNumber());
+        for (int i = 1; i <= lastPaginationNumber; i++) {
+            paginationList.add("https://www.jobs.pl/oferty/p-" + i);
+        }
+//        System.out.println(paginationList.toString());
+    }
+
     /**
      * Collects basic data from all single job offer from the portal "jobs.pl".
      */
@@ -177,7 +201,8 @@ public class JobsPlDataCollector extends DataCollectorSettings {
     }
 
     public void downloadAll() throws Exception {
-        collectStructure();
+//        collectStructure();
+        fillPaginationList();
         collectData();
     }
 
