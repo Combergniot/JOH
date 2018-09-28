@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 // TODO - refraktor employmentType na positionLevel
 @Data
@@ -23,6 +24,8 @@ public class PracujPl extends JobOffer {
     private String emploLink; // link do danych o pracodawcy, można wyciągnąć NIP i lokalizację
 
     private String dataID; // unikalny ID ze strony
+
+    private String region;
 
 // na Lob?
     private String branch;
@@ -87,5 +90,13 @@ public class PracujPl extends JobOffer {
 
     public void setBranch(String branch) {
         this.branch = branch;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 }

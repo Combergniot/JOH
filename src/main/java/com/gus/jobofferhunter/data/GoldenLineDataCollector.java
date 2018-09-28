@@ -27,7 +27,6 @@ public class GoldenLineDataCollector extends DataCollectorSettings {
 
     private static final Logger log = LoggerFactory.getLogger(GoldenLineDataCollector.class);
 
-
     /**
      * Collects links to all websites with offers from the portal "goldenline.pl".
      * GoldenLine blocks ip adresses. Math.random for Thread try to proves that "I am not a robot".

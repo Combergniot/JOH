@@ -5,7 +5,7 @@
 
     <groupId>JOH</groupId>
     <artifactId>JobOfferHunter</artifactId>
-    <version>0.1.35</version>
+    <version>0.1.37</version>
     <packaging>jar</packaging>
 
     <name>Job Offer Hunter</name>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-         </dependency>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -109,13 +109,13 @@
             <optional>true</optional>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>23.0</version>
         </dependency>
+
     </dependencies>
 
     <build>

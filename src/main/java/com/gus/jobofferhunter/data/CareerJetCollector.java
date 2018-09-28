@@ -10,7 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-//Pobierze tylko z 2tys. ofert... 100*20
+//obierze tylko z 2tys. ofert... 100*20
+//TODO https://www.careerjet.com/partners/api/ - sprawdź
+
 @Component
 public class CareerJetCollector extends DataCollectorSettings{
 

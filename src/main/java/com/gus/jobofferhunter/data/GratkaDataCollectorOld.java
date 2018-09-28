@@ -14,7 +14,7 @@
 //import java.time.LocalDateTime;
 //import java.util.List;
 //
-////TODO - pobieranie pelnego opisu oferty,
+
 //
 //@Component
 //public class GratkaDataCollector extends DataCollectorSettings {
