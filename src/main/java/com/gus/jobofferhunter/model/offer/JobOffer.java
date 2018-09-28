@@ -2,10 +2,11 @@ package com.gus.jobofferhunter.model.offer;
 
 import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 
 
 @MappedSuperclass
-public abstract class JobOffer {
+public abstract class JobOffer implements Serializable{
 
     private String datePublished; //data dodania ogłoszenia
 

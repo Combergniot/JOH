@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO - Czekamy na odpowiedz z LinkeDin'a dot. możliwości scapowania
+//TODO - https://developer.linkedin.com/docs/rest-api - sprawdzić
 
 @Component
 public class LinkedinDataCollector extends DataCollectorSettings {

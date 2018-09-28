@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+//TODO - To cholerstwo nie pobierze więcej niz 2tys linków, ograniczenie przy paginacji...
+
 @Component
 public class AllTheJobsCollector extends DataCollectorSettings {
 
@@ -46,7 +48,7 @@ public class AllTheJobsCollector extends DataCollectorSettings {
 //        System.out.println(paginationList.toString());
     }
 
-    //TODO - To cholerstwo nie pobierze więcej niz 2000tys linków, ograniczenie przy paginacji...
+
     public void collectLinks() throws Exception {
         fillPaginationList();
         for (int i = 0; i < paginationList.size(); i++) {
@@ -140,7 +142,6 @@ public class AllTheJobsCollector extends DataCollectorSettings {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println(jobOffersList.size());
-
         }
     }
 

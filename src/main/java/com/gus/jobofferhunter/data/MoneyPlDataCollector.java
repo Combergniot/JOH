@@ -41,7 +41,7 @@ public class MoneyPlDataCollector extends DataCollectorSettings {
                 String url = e.attr("abs:href");
                 paginationList.add(url);
             }
-//            System.out.println(paginationList.get(i));
+            System.out.println(paginationList.get(i));
         }
         log.info("Page structure downloaded!");
     }

@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Component
 public class PracujPlDataCollector extends DataCollectorSettings {
@@ -49,12 +48,40 @@ public class PracujPlDataCollector extends DataCollectorSettings {
         log.info("Page structure downloaded!");
     }
 
+    private String findLastPaginationNumber() throws Exception {
+        Document paginationPage = Jsoup.connect("https://www.pracuj.pl/praca")
+                .proxy("10.51.55.34", 8080)
+                .userAgent(USER_AGENT)
+                .referrer(REFERRER)
+                .timeout(12000)
+                .followRedirects(true)
+                .get();
+
+        Elements pagination = paginationPage
+                .select("ul.desktopPagin.clearfix>li>a.desktopPagin_item_link");
+        if (pagination.size() > 2) {
+            String lastPaginationNumber = pagination.get(2).text();
+            System.out.println(lastPaginationNumber);
+            return lastPaginationNumber;
+        }
+        return "";
+    }
+
+    private void fillPaginationList() throws Exception {
+        int lastPaginationNumber = Integer.parseInt(findLastPaginationNumber());
+        for (int i = 1; i <= lastPaginationNumber; i++) {
+            paginationList.add("https://www.pracuj.pl/praca?pn=" + i);
+        }
+        System.out.println(paginationList.toString());
+    }
+
     /**
      * Collects links to all single offers from the portal "pracuj.pl".
      */
     public void collectLinks() throws Exception {
         log.info("The links to job offers are being downloaded...");
-        for (int i = 0; i < paginationList.size(); i++) {
+            for (int i = 0; i < paginationList.size(); i++) {
+//                Thread.sleep(3000 + (long) Math.random() * 2000);
             Document linkCollection = Jsoup.connect(paginationList.get(i))
                     .proxy("10.51.55.34", 8080)
                     .userAgent(USER_AGENT)
@@ -69,6 +96,7 @@ public class PracujPlDataCollector extends DataCollectorSettings {
                         .select("a.o-list_item_link_name")
                         .attr("abs:href");
                 jobOffersList.add(link);
+                System.out.println(link);
             }
         }
         removeDuplicatesFromList();
@@ -81,6 +109,7 @@ public class PracujPlDataCollector extends DataCollectorSettings {
     public void collectData() throws Exception {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < jobOffersList.size(); i++) {
+    //        Thread.sleep(3000 + (long) Math.random() * 2000);
             Document singleOffer = Jsoup.connect(jobOffersList.get(i))
                     .proxy("10.51.55.34", 8080)
                     .userAgent(USER_AGENT)
@@ -94,11 +123,12 @@ public class PracujPlDataCollector extends DataCollectorSettings {
             for (Element element : applyBox) {
                 pracujPl.setEmployer(searchForEmployer(element));
                 pracujPl.setPosition(searchForPosition(element));
-                pracujPl.setWorkplace(searchForWorkplace(element));
+                pracujPl.setWorkplace(searchForLocation(element));
                 pracujPl.setEmploymentType(searchForEmploymentType(element));
                 pracujPl.setDatePublished(searchForDatePublished(element));
                 pracujPl.setValidThrough(searchForValidThrough(element));
                 pracujPl.setEmploLink(searchForEmploLink(element));
+                pracujPl.setRegion(searchForRegion(element));
             }
             Elements branchParameter = singleOffer.select("div.content");
             for (Element element : branchParameter) {
@@ -110,6 +140,7 @@ public class PracujPlDataCollector extends DataCollectorSettings {
             pracujPl.setWebPage("pracuj.pl");
             pracujPlService.save(pracujPl);
             log.info("The data from single offer was downloaded...");
+
         }
         log.info("All data from the pracuj.pl has been downloaded");
     }
@@ -119,14 +150,16 @@ public class PracujPlDataCollector extends DataCollectorSettings {
      * Initiates the process of data collection".
      */
     public void downloadAll() throws Exception {
-        collectStructure();
+        fillPaginationList();
+//        collectStructure();
         collectLinks();
         collectData();
     }
 
     public void test() throws Exception {
         log.info("The data downloading is in progress...");
-        Document singleOffer = Jsoup.connect("https://www.pracuj.pl/praca/project-management-officer-lodz,oferta,5892733")
+        Document singleOffer =
+                Jsoup.connect("https://www.pracuj.pl/praca/zarzadca-administrator-nieruchomosci-wroclaw,oferta,6037657")
                 .proxy("10.51.55.34", 8080)
                 .userAgent(USER_AGENT)
                 .referrer(REFERRER)
@@ -139,7 +172,7 @@ public class PracujPlDataCollector extends DataCollectorSettings {
         for (Element element : applyBox) {
             pracujPl.setEmployer(searchForEmployer(element));
             pracujPl.setPosition(searchForPosition(element));
-            pracujPl.setWorkplace(searchForWorkplace(element));
+            pracujPl.setWorkplace(searchForLocation(element));
             pracujPl.setEmploymentType(searchForEmploymentType(element));
             pracujPl.setDatePublished(searchForDatePublished(element));
             pracujPl.setValidThrough(searchForValidThrough(element));
@@ -147,6 +180,7 @@ public class PracujPlDataCollector extends DataCollectorSettings {
             pracujPl.setEmploLink(searchForEmploLink(element));
             pracujPl.setDataSearch(LocalDateTime.now().format(formatter));
             pracujPl.setWebPage("pracuj.pl");
+            pracujPl.setRegion(searchForRegion(element));
         }
         Elements branchParameter = singleOffer.select("div.content");
         for (Element element : branchParameter) {
@@ -155,6 +189,14 @@ public class PracujPlDataCollector extends DataCollectorSettings {
         }
         pracujPlService.save(pracujPl);
         log.info("The data from single offer was downloaded...");
+    }
+
+    private String searchForRegion(Element element) {
+        String workplace = searchForWorkplace(element);
+        String region =
+                workplace.substring(workplace.lastIndexOf(",") + 1, workplace.length());
+        String correctRegion =region.replaceAll("\\s+","");
+        return correctRegion;
     }
 
     /**
@@ -173,7 +215,7 @@ public class PracujPlDataCollector extends DataCollectorSettings {
 
     //  Błąd w zapisie słowa 'rozwój' na stronie np. Badania i rozwój, IT- rozwój oprogramowania
     private String searchForBranch(Element element) {
-        try {
+            try {
             String script = element.getElementsByTag("script")
                     .first().nextElementSibling().html();
             String branch = script.substring(script.indexOf("=") + 3, script.indexOf(";") - 1);
@@ -188,7 +230,7 @@ public class PracujPlDataCollector extends DataCollectorSettings {
 
     //TODO - alternatywa dla ofert, które nie mają skryptu w div.content 6 ofert na 50tys.
     private String searchForDataBranchAlt(Element element) {
-            try {
+        try {
             String script = element.getElementsByTag("script")
                     .first().nextElementSibling().html();
             String branch = script.substring(script.indexOf("=") + 3, script.indexOf(";") - 1);
@@ -197,6 +239,11 @@ public class PracujPlDataCollector extends DataCollectorSettings {
             return correctBranch;
         } catch (NullPointerException e) {
             e.printStackTrace();
+            return "Brak danych";
+        }catch (StringIndexOutOfBoundsException e){
+            e.printStackTrace();
+            return "Brak danych";
+        }finally {
             return "Brak danych";
         }
     }
@@ -220,6 +267,17 @@ public class PracujPlDataCollector extends DataCollectorSettings {
         return correctWorkplace;
     }
 
+    private String searchForLocation(Element element) {
+        String location = searchForWorkplace(element);
+        String correctLocation = null;
+        try {
+            correctLocation = location.substring(0, location.lastIndexOf(","));
+        } catch (StringIndexOutOfBoundsException e) {
+            return location;
+        }
+        return correctLocation;
+    }
+
     private String searchForEmploymentType(Element element) {
         String employmentType =
                 element.select("span[itemprop = employmentType]").text();
@@ -240,6 +298,7 @@ public class PracujPlDataCollector extends DataCollectorSettings {
 
     //TODO - alternatywą jest pobieranie ID z URL, hash-mapa zamiast listy? Problem z ofertami wyróżnionymi
     // 11 pozycji na 47 tys. ofert ma inny skrypt...
+    //  pobieraj ostatnie 7 znaków z linku i będzie działać...
     private String searchForDataId(Element element) {
         try {
             String script = element.getElementsByTag("script")
@@ -251,14 +310,18 @@ public class PracujPlDataCollector extends DataCollectorSettings {
                     script.indexOf("price") - 5);
             return dataId;
         } catch (NullPointerException e) {
-           return "Do poprawki";
+            return "Do poprawki";
+        } catch (StringIndexOutOfBoundsException e){
+            return "Do poprawki";
+        } finally {
+            return "Brak danych";
         }
     }
 
     //TODO - wyjdź z div.content
     private String searchForDataIdAlt(Element element) {
         try {
-              String scriptAlt = element
+            String scriptAlt = element
                     .select("div.main")
                     .last()
                     .previousElementSibling()

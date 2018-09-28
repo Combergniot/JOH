@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PracujPlRepository extends CrudRepository <PracujPl, Long> {
+
+
 }
