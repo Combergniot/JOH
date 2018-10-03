@@ -41,6 +41,9 @@ public class Scrapper {
     PracaOwiCollector pracaOwiCollector;
     @Autowired
     JobSwypeCollector jobSwypeCollector;
+    @Autowired
+    LinguaJobCollector linguaJobCollector;
+
 
     public void downloadDataFromPracujPl() throws Exception {
         pracujPlDataCollector.downloadAll();
@@ -94,7 +97,7 @@ public class Scrapper {
     }
 
     public void downloadDataFromAdzuna() throws Exception {
-        System.out.println("WORK IN PROGRESS! Adzuna Scrapper is currently under technical maintenance");
+        adzunaCollector.collectData();
     }
 
     public void downloadDataFromGazetaPraca() throws Exception {
@@ -109,5 +112,11 @@ public class Scrapper {
         System.out.println("WORK IN PROGRESS! JobSwype Scrapper is currently under technical maintenance");
         System.out.println("PAGINATION LIMIT!");
     }
+
+    public void downloadDataFromLinguaJob() throws Exception {
+        System.out.println("WORK IN PROGRESS! LinguaJob Scrapper is currently under technical maintenance");
+        linguaJobCollector.collectData();
+    }
+
 
 }
