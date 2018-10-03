@@ -177,7 +177,7 @@ public class GratkaDataCollector extends DataCollectorSettings {
     private String searchForAdditionalOptions(Element element) {
         try {
             String additionalOptions =
-                    element.getElementsContainingOwnText("Dodatkowe opocje").next().text();
+                    element.getElementsContainingOwnText("Dodatkowe opcje").next().text();
             return additionalOptions;
         } catch (NullPointerException e) {
             e.printStackTrace();

@@ -1,11 +1,18 @@
 package com.gus.jobofferhunter.data;
 
 import com.gus.jobofferhunter.model.offer.LinguaJob;
+import com.gus.jobofferhunter.model.offer.MoneyPl;
 import com.gus.jobofferhunter.service.LinguaJobService;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 @Component
 public class LinguaJobCollector extends DataCollectorSettings {
@@ -14,4 +21,113 @@ public class LinguaJobCollector extends DataCollectorSettings {
     LinguaJobService linguaJobService;
 
     private static final Logger log = LoggerFactory.getLogger(LinguaJob.class);
+
+    private String findLastPaginationNumber() throws Exception {
+        Document paginationPage = Jsoup.connect("http://www.linguajob.pl/szukaj/?p=1")
+                .proxy("10.51.55.34", 8080)
+                .userAgent(USER_AGENT)
+                .referrer(REFERRER)
+                .timeout(12000)
+                .followRedirects(true)
+                .get();
+
+        Elements pagination = paginationPage
+                .select("div.strony");
+        String lastPaginationNumber = pagination.select("a.notcurrent").last().text();
+        log.info("Pagination size on LinguaJob: "+ lastPaginationNumber);
+        return lastPaginationNumber;
+    }
+
+    private void fillPaginationList() throws Exception {
+        int lastPaginationNumber = Integer.parseInt(findLastPaginationNumber());
+        for (int i = 1; i <= lastPaginationNumber; i++) {
+            paginationList.add("http://www.linguajob.pl/szukaj/?p=" + i);
+        }
+        System.out.println(paginationList.toString());
+    }
+
+    public void collectData() throws Exception {
+        fillPaginationList();
+        log.info("The data downloading is in progress...");
+        for (int i = 0; i < paginationList.size(); i++) {
+            Document singleOffer = Jsoup.connect(paginationList.get(i))
+                    .proxy("10.51.55.34", 8080)
+                    .userAgent(USER_AGENT)
+                    .referrer(REFERRER)
+                    .timeout(12000)
+                    .ignoreHttpErrors(true)
+                    .followRedirects(true)
+                    .get();
+            Elements jobOfferTable = singleOffer.select("div#ogloszenia");
+            Elements singleOfferBox = jobOfferTable.select("div.ogloszenie");
+            for (Element element : singleOfferBox) {
+                LinguaJob linguaJob = new LinguaJob();
+                linguaJob.setPosition(searchForPosition(element));
+                linguaJob.setWorkplace(searchForWorkplace(element));
+                linguaJob.setEmployer(searchForEmployer(element));
+                linguaJob.setDatePublished(searchForDatePublished(element));
+                linguaJob.setBranch(searchForBranch(element));
+                linguaJob.setSecondLanguage(searchForSecondLanguage(element));
+                linguaJob.setLanguage(searchForLanguage(element));
+                linguaJob.setUrl(searchForUrl(element));
+                linguaJob.setWebPage("LinguaJob");
+                linguaJob.setDataSearch(LocalDateTime.now().format(formatter));
+                linguaJobService.save(linguaJob);
+                log.info("The data from single offer was downloaded...");
+            }
+            log.info("All data from the LinguaJob has been downloaded");
+        }
+    }
+
+    private String searchForUrl(Element element) {
+        String url = element.select("div.right>a").attr("abs:href");
+        return url;
+    }
+
+
+    private String searchForWorkplace(Element element) {
+        String workplace =
+                 element.select("p.miasto>span>a").text();
+        return workplace;
+    }
+
+    private String searchForLanguage(Element element) {
+        String language =
+                element.getElementsContainingOwnText("Język:").next().text();
+        return language;
+    }
+
+    private String searchForSecondLanguage(Element element) {
+        String secondLanguage =
+                element.getElementsContainingOwnText("Język:").next().next().text();
+        return secondLanguage;
+    }
+
+
+    private String searchForBranch(Element element) {
+        String branch =element.getElementsContainingOwnText("Branża:").next().text();
+        return  branch;
+    }
+
+
+    private String searchForDatePublished(Element element) {
+        String datePublished = element.select("p.miasto").text();
+        String correctDate = null;
+        try {
+            correctDate = datePublished.substring(0, datePublished.lastIndexOf("|")-1);
+        } catch (StringIndexOutOfBoundsException e) {
+            return datePublished;
+        }
+        return correctDate;
+    }
+
+    private String searchForEmployer(Element element) {
+        String employer =element.select("h3>a").last().text();
+        return employer;
+    }
+
+    private String searchForPosition(Element element) {
+        String position =element.select("h3>a>span").text();
+        return position;
+    }
 }
