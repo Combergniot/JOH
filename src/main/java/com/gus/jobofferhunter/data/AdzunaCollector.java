@@ -5,7 +5,6 @@ package com.gus.jobofferhunter.data;
 
 import com.gus.jobofferhunter.api.AdzunaApiService;
 import com.gus.jobofferhunter.model.offer.Adzuna;
-import com.gus.jobofferhunter.model.offer.MoneyPl;
 import com.gus.jobofferhunter.service.AdzunaService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,8 +19,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 
-//TODO - pobieranie całości ofert przez API?
-//Pobierać dane z innych krajow
+//Czy pobierać dane z innych krajów? Generowanie danych przez API
 
 @Component
 public class AdzunaCollector extends DataCollectorSettings {

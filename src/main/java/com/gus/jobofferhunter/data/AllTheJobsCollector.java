@@ -14,8 +14,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-//TODO - To cholerstwo nie pobierze więcej niz 2tys linków, ograniczenie przy paginacji...
-
 @Component
 public class AllTheJobsCollector extends DataCollectorSettings {
 
@@ -24,30 +22,28 @@ public class AllTheJobsCollector extends DataCollectorSettings {
 
     private static final Logger log = LoggerFactory.getLogger(AllTheJobsCollector.class);
 
-    private String findLastPaginationNumber() throws Exception {
-        Document paginationPage = Jsoup.connect("https://allthejobs.pl/praca/,p1")
+    private int findLastPaginationNumber() throws IOException {
+        Document document = Jsoup.connect("https://allthejobs.pl/praca/")
                 .proxy("10.51.55.34", 8080)
                 .userAgent(USER_AGENT)
                 .referrer(REFERRER)
                 .timeout(12000)
                 .followRedirects(true)
                 .get();
-
-        Elements pagination = paginationPage
-                .select("div.pull-right");
-        String lastPaginationNumber = pagination.select("a.btn.bg-primary").last().text();
-//        System.out.println(lastPaginationNumber);
+        String searchedNumber =
+                document.select("h1.margin-top-xs.margin-bottom-lg.text-weight-normal>span.badge.badge-info").text();
+        int lastPaginationNumber = Integer.parseInt(searchedNumber) / 25;
+        System.out.println(lastPaginationNumber);
         return lastPaginationNumber;
     }
 
     private void fillPaginationList() throws Exception {
-        int lastPaginationNumber = Integer.parseInt(findLastPaginationNumber());
-        for (int i = 1; i <= lastPaginationNumber; i++) {
+        int number = findLastPaginationNumber();
+        for (int i = 1; i <= number; i++) {
             paginationList.add("https://allthejobs.pl/praca/,p" + i);
         }
 //        System.out.println(paginationList.toString());
     }
-
 
     public void collectLinks() throws Exception {
         fillPaginationList();
@@ -66,7 +62,7 @@ public class AllTheJobsCollector extends DataCollectorSettings {
                         .select("h3.margin-bottom-clear>a")
                         .attr("abs:href");
                 jobOffersList.add(link);
-                System.out.println("NR: " +jobOffersList.size() +": "+ link);
+                System.out.println("NR " + jobOffersList.size() + ": " + link);
             }
         }
         removeDuplicatesFromList();

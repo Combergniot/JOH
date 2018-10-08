@@ -74,7 +74,6 @@ public class OlxDataCollector extends DataCollectorSettings {
     /**
      * Collects data from all single job offer from the portal "www.olx.pl/praca".
      */
-//    TODO = po cholerę ustawiłem int=1 w pętli?
     public void collectData() throws Exception {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < jobOffersList.size(); i++) {

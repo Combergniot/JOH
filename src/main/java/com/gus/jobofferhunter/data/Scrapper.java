@@ -75,7 +75,6 @@ public class Scrapper {
     }
 
     public void downloadDataFromAllTheJobs() throws Exception {
-        System.out.println("PAGINATION LIMIT!");
         allTheJobsCollector.downloadAll();
     }
 
@@ -110,13 +109,12 @@ public class Scrapper {
 
     public void downloadDataFromJobSwype() throws Exception {
         System.out.println("WORK IN PROGRESS! JobSwype Scrapper is currently under technical maintenance");
-        System.out.println("PAGINATION LIMIT!");
+        jobSwypeCollector.collectData();
+
     }
 
     public void downloadDataFromLinguaJob() throws Exception {
-        System.out.println("WORK IN PROGRESS! LinguaJob Scrapper is currently under technical maintenance");
         linguaJobCollector.collectData();
     }
-
 
 }
