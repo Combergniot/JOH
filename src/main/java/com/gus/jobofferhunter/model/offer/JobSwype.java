@@ -1,7 +1,5 @@
 package com.gus.jobofferhunter.model.offer;
 
-//TODO - świetny agregator
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -16,4 +14,36 @@ public class JobSwype extends JobOffer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String typeOfWork;
+
+    @Lob
+    private String url;
+
+    public JobSwype() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTypeOfWork() {
+        return typeOfWork;
+    }
+
+    public void setTypeOfWork(String typeOfWork) {
+        this.typeOfWork = typeOfWork;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

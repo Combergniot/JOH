@@ -1,7 +1,6 @@
 package com.gus.jobofferhunter.data;
 
 import com.gus.jobofferhunter.model.offer.LinguaJob;
-import com.gus.jobofferhunter.model.offer.MoneyPl;
 import com.gus.jobofferhunter.service.LinguaJobService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
