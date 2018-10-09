@@ -1,6 +1,5 @@
 package com.gus.jobofferhunter.model.offer;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

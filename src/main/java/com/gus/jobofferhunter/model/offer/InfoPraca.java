@@ -1,7 +1,5 @@
 package com.gus.jobofferhunter.model.offer;
 
-//TODO - ok 16tys. ofert
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Component
-public class InfoPracaCollector extends DataCollectorSettings {
+public class InfoPracaScrapper extends DataCollectorSettings {
 
     @Autowired
     InfoPracaService infoPracaService;

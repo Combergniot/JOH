@@ -5,8 +5,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-//todo Valid URL w liscie linkow - do poprawy
-
 @Data
 @AllArgsConstructor
 

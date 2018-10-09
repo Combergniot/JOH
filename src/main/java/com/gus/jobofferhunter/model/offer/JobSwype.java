@@ -17,6 +17,8 @@ public class JobSwype extends JobOffer {
 
     private String typeOfWork;
 
+    private String salary;
+
     @Lob
     private String url;
 
@@ -45,5 +47,13 @@ public class JobSwype extends JobOffer {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
     }
 }

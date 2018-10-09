@@ -14,12 +14,12 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class PracujPlDataCollector extends DataCollectorSettings {
+public class PracujPlScrapper extends DataCollectorSettings {
 
     @Autowired
     PracujPlService pracujPlService;
 
-    private static final Logger log = LoggerFactory.getLogger(PracujPlDataCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(PracujPlScrapper.class);
 
     /**
      * Collects links to all websites with offers from the portal "pracuj.pl".

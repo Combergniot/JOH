@@ -1,7 +1,5 @@
 package com.gus.jobofferhunter.model.offer;
 
-//TODO - glownie zagraniczne oferty - http://praca.owi.pl/za-granica
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

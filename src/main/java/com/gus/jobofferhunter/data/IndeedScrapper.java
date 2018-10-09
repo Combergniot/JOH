@@ -2,5 +2,5 @@ package com.gus.jobofferhunter.data;
 
 //TODO - https://www.indeed.com/publisher
 
-public class IndeedCollector {
+public class IndeedScrapper {
 }

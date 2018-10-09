@@ -5,8 +5,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-//TODO - sprawdz co tam sie pieprzylo
-
 @Data
 @AllArgsConstructor
 

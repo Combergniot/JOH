@@ -5,8 +5,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-//TODO - 4tys. ofert
-
 @Data
 @AllArgsConstructor
 
