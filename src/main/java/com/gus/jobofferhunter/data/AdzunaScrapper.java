@@ -22,9 +22,9 @@ import java.time.LocalDateTime;
 //Czy pobierać dane z innych krajów? Generowanie danych przez API
 
 @Component
-public class AdzunaCollector extends DataCollectorSettings {
+public class AdzunaScrapper extends DataCollectorSettings {
 
-    private static final Logger log = LoggerFactory.getLogger(AdzunaCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(AdzunaScrapper.class);
     AdzunaApiService adzunaApiService = new AdzunaApiService();
     @Autowired
     AdzunaService adzunaService;

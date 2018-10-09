@@ -17,12 +17,12 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Component
-public class JobsPlDataCollector extends DataCollectorSettings {
+public class JobsPlScrapper extends DataCollectorSettings {
 
     @Autowired
     JobsPlService jobsPlService;
 
-    private static final Logger log = LoggerFactory.getLogger(JobsPlDataCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(JobsPlScrapper.class);
     private Map<String, String> branchTree = new TreeMap<>();
 
     /**

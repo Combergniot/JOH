@@ -8,57 +8,63 @@ import org.springframework.stereotype.Component;
 public class Scrapper {
 
     @Autowired
-    GratkaDataCollector gratkaDataCollector;
+    GratkaScrapper gratkaScrapper;
     @Autowired
-    MoneyPlDataCollector moneyPlDataCollector;
+    MoneyPlScrapper moneyPlScrapper;
     @Autowired
-    OlxDataCollector olxDataCollector;
+    OlxScrapper olxScrapper;
     @Autowired
-    PracujPlDataCollector pracujPlDataCollector;
+    PracujPlScrapper pracujPlScrapper;
     @Autowired
-    GoldenLineDataCollector goldenLineDataCollector;
+    GoldenLineScrapper goldenLineScrapper;
     @Autowired
-    LinkedinDataCollector linkedinDataCollector;
+    LinkedinScrapper linkedinScrapper;
     @Autowired
-    JobsPlDataCollector jobsPlDataCollector;
+    JobsPlScrapper jobsPlScrapper;
     @Autowired
-    AllTheJobsCollector allTheJobsCollector;
+    AllTheJobsScrapper allTheJobsScrapper;
     @Autowired
-    GumtreeCollector gumtreeCollector;
+    GumtreeScrapper gumtreeScrapper;
     @Autowired
-    CareerJetCollector careerJetCollector;
+    CareerJetScrapper careerJetScrapper;
     @Autowired
-    InfoPracaCollector infoPracaCollector;
+    InfoPracaScrapper infoPracaScrapper;
     @Autowired
-    AbsolventCollector absolventCollector;
+    AbsolventScrapper absolventScrapper;
     @Autowired
     PracujPlDataProcessing pracujPlDataProcessing;
     @Autowired
-    AdzunaCollector adzunaCollector;
+    AdzunaScrapper adzunaScrapper;
     @Autowired
-    GazetaPracaCollector gazetaPracaCollector;
+    GazetaPracaScrapper gazetaPracaScrapper;
     @Autowired
-    PracaOwiCollector pracaOwiCollector;
+    PracaOwiScrapper pracaOwiScrapper;
     @Autowired
-    JobSwypeCollector jobSwypeCollector;
+    JobSwypeScrapper jobSwypeScrapper;
     @Autowired
-    LinguaJobCollector linguaJobCollector;
+    LinguaJobScrapper linguaJobScrapper;
+    @Autowired
+    JoberScrapper joberScrapper;
+    @Autowired
+    PracaPlScrapper pracaPlScrapper;
+    @Autowired
+    PracaTobieScrapper pracaTobieScrapper;
 
 
     public void downloadDataFromPracujPl() throws Exception {
-        pracujPlDataCollector.downloadAll();
+        pracujPlScrapper.downloadAll();
     }
 
     public void downloadDataFromGratka() throws Exception {
-        gratkaDataCollector.downloadAll();
+        gratkaScrapper.downloadAll();
     }
 
     public void downloadDataFromOlx() throws Exception {
-        olxDataCollector.downloadAll();
+        olxScrapper.downloadAll();
     }
 
     public void downloadDataFromMoneyPl() throws Exception {
-        moneyPlDataCollector.downloadALL();
+        moneyPlScrapper.downloadALL();
     }
 
     public void downloadDataFromGoldenLine() throws Exception {
@@ -71,15 +77,15 @@ public class Scrapper {
     }
 
     public void downloadDataFromJobsPl() throws Exception {
-        jobsPlDataCollector.downloadAll();
+        jobsPlScrapper.downloadAll();
     }
 
     public void downloadDataFromAllTheJobs() throws Exception {
-        allTheJobsCollector.downloadAll();
+        allTheJobsScrapper.downloadAll();
     }
 
     public void downloadDataFromGumtree() throws Exception {
-        gumtreeCollector.downloadAll();
+        gumtreeScrapper.downloadAll();
     }
 
     public void downloadDataFromCareerJet() throws Exception {
@@ -88,7 +94,7 @@ public class Scrapper {
     }
 
     public void downloadDataFromInfoPraca() throws Exception {
-        infoPracaCollector.downloadAll();
+        infoPracaScrapper.downloadAll();
     }
 
     public void downloadDataFromAbsolvent() throws Exception {
@@ -96,7 +102,7 @@ public class Scrapper {
     }
 
     public void downloadDataFromAdzuna() throws Exception {
-        adzunaCollector.collectData();
+        adzunaScrapper.collectData();
     }
 
     public void downloadDataFromGazetaPraca() throws Exception {
@@ -108,13 +114,28 @@ public class Scrapper {
     }
 
     public void downloadDataFromJobSwype() throws Exception {
-        System.out.println("WORK IN PROGRESS! JobSwype Scrapper is currently under technical maintenance");
-        jobSwypeCollector.collectData();
-
+        jobSwypeScrapper.collectData();
     }
 
     public void downloadDataFromLinguaJob() throws Exception {
-        linguaJobCollector.collectData();
+        linguaJobScrapper.collectData();
     }
+
+    public void downloadDataFromJober()throws Exception{
+        System.out.println("WORK IN PROGRESS!Jober Scrapper is currently under technical maintenance");
+        joberScrapper.collectData();
+    }
+
+    public void downloadDataFromPracaPl()throws Exception{
+        System.out.println("WORK IN PROGRESS!PracaPl Scrapper is currently under technical maintenance");
+        pracaPlScrapper.collectData();
+    }
+
+    public void downloadDataFromPracaTobie()throws Exception{
+        System.out.println("WORK IN PROGRESS! PracaTobie Scrapper is currently under technical maintenance");
+        pracaTobieScrapper.collectData();
+    }
+
+
 
 }

@@ -15,11 +15,11 @@ public class PracaTobieService {
         this.pracaTobieRepository = pracaTobieRepository;
     }
 
-    public Iterable<PracaTobie> list(){
+    public Iterable<PracaTobie> list() {
         return pracaTobieRepository.findAll();
     }
 
-    public PracaTobie save(PracaTobie pracaTobie){
+    public PracaTobie save(PracaTobie pracaTobie) {
         return pracaTobieRepository.save(pracaTobie);
     }
 

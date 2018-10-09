@@ -18,12 +18,12 @@ import java.util.Arrays;
 // Datę publikacji by trzeba razem z linkiem pobierac, jako hashmapę
 
 @Component
-public class GratkaDataCollector extends DataCollectorSettings {
+public class GratkaScrapper extends DataCollectorSettings {
 
     @Autowired
     GratkaService gratkaService;
 
-    private static final Logger log = LoggerFactory.getLogger(GratkaDataCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(GratkaScrapper.class);
 
     //TODO - split może powodować błedy
     private String findLastPaginationNumber() throws Exception {

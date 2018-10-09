@@ -14,12 +14,12 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class OlxDataCollector extends DataCollectorSettings {
+public class OlxScrapper extends DataCollectorSettings {
 
     @Autowired
     OlxService olxService;
 
-    private static final Logger log = LoggerFactory.getLogger(OlxDataCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(OlxScrapper.class);
 
     /**
      * Collects links to all websites with offers from the portal "olx.pl".

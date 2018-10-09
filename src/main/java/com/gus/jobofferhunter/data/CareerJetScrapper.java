@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 //TODO https://www.careerjet.com/partners/api/ - sprawdź
 
 @Component
-public class CareerJetCollector extends DataCollectorSettings{
+public class CareerJetScrapper extends DataCollectorSettings{
 
     @Autowired
     CareerJetService careerJetService;

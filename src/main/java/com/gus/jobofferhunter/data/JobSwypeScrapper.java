@@ -14,11 +14,10 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-//Trzeba manipulować adresem
-//https://www.jobswype.pl/praca?title=&location=&radius=0&sorting=&display=&page=99
+
 //Disallow: /praca?title=*
 @Component
-public class JobSwypeCollector extends DataCollectorSettings {
+public class JobSwypeScrapper extends DataCollectorSettings {
 
     @Autowired
     JobSwypeService jobSwypeService;
@@ -40,11 +39,11 @@ public class JobSwypeCollector extends DataCollectorSettings {
                 element
                         .replaceAll("Około ", "")
                         .replaceAll(" wyników", "")
-                        .replace(".","");
-        Integer lastPaginationNumber = Integer.parseInt(corrections)/10;
+                        .replace(".", "");
+        Integer lastPaginationNumber = Integer.parseInt(corrections) / 10;
         System.out.println(lastPaginationNumber);
         return lastPaginationNumber;
-     }
+    }
 
     private void fillPaginationList() throws IOException {
         int number = findLastPaginationNumber();
@@ -66,35 +65,57 @@ public class JobSwypeCollector extends DataCollectorSettings {
                     .ignoreHttpErrors(true)
                     .followRedirects(true)
                     .get();
-            JobSwype jobSwype = new JobSwype();
             Elements content = singleOffer.select("div#content>div.job.card.mb-1");
             for (Element element : content) {
+                JobSwype jobSwype = new JobSwype();
                 jobSwype.setPosition(searchForPosition(element));
                 jobSwype.setWebPage("JobSwype");
+                jobSwype.setDataSearch(LocalDateTime.now().format(formatter));
+                jobSwype.setUrl(searchForUrl(element));
                 jobSwype.setWorkplace(searchForWorkplace(element));
                 jobSwype.setDatePublished(searchForDatePublished(element));
                 jobSwype.setTypeOfWork(searchForTypeOfWork(element));
-                jobSwype.setUrl(searchForUrl(element));
-                jobSwype.setDataSearch(LocalDateTime.now().format(formatter));
+                jobSwype.setEmployer(searchForEmployer(element));
+                jobSwype.setSalary(searchForSalary(element));
                 jobSwypeService.save(jobSwype);
                 log.info("The data from single page was downloaded...");
             }
             log.info("Links to all job offers from JobSwype.pl has been downloaded!");
         }
+
+    }
+
+    private String searchForSalary(Element element) {
+        String salary =
+                element.select("span.delimiter.d-none.job-salary").text();
+        return salary;
+    }
+
+    private String searchForEmployer(Element element) {
+        String employer = element.select("span.delimiter.d-none.job-company").text();
+        return employer;
     }
 
     private String searchForUrl(Element element) {
-        String url = "";
+        String url =
+                element.select("a.ext-link")
+                        .attr("abs:href");
         return url;
     }
 
     private String searchForTypeOfWork(Element element) {
-        String typeOfWork = "";
+        String typeOfWork = element.select("span.delimiter")
+                .first()
+                .text();
         return typeOfWork;
     }
 
-    private String searchForWorkplace(Element element) {
-        String workplace = "";
+     private String searchForWorkplace(Element element) {
+        String workplace =
+                element.select("span.delimiter:gt(2)")
+                        .not("span.delimiter.d-none.job-company")
+                        .not("span.delimiter.d-none.job-salary")
+                        .text();
         return workplace;
     }
 
@@ -104,7 +125,7 @@ public class JobSwypeCollector extends DataCollectorSettings {
     }
 
     private String searchForDatePublished(Element element) {
-        String datePublished = "";
+        String datePublished = element.select("span.job-date").text();
         return datePublished;
     }
 

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PracaOwiCollector extends DataCollectorSettings {
+public class PracaOwiScrapper extends DataCollectorSettings {
 
     @Autowired
     PracaOwiService pracaOwiService;

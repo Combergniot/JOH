@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GazetaPracaCollector extends DataCollectorSettings{
+public class GazetaPracaScrapper extends DataCollectorSettings{
 
     @Autowired
     GazetaPracaService gazetaPracaService;
 
-    private static final Logger log = LoggerFactory.getLogger(GazetaPracaCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(GazetaPracaScrapper.class);
 
 }

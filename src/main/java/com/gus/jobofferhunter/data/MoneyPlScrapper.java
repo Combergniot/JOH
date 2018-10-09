@@ -14,12 +14,12 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class MoneyPlDataCollector extends DataCollectorSettings {
+public class MoneyPlScrapper extends DataCollectorSettings {
 
     @Autowired
     MoneyPlService moneyPlService;
 
-    private static final Logger log = LoggerFactory.getLogger(MoneyPlDataCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(MoneyPlScrapper.class);
 
     /**
      * Collects links to all websites with offers from the portal "praca.money.pl".

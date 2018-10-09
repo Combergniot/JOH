@@ -1,7 +1,6 @@
 package com.gus.jobofferhunter.data;
 
 import com.gus.jobofferhunter.model.offer.GoldenLine;
-import com.gus.jobofferhunter.model.offer.JobsPl;
 import com.gus.jobofferhunter.service.GoldenLineService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,12 +19,12 @@ import java.util.List;
 //TODO - wyrzucić ul.items-list js-job-predicted - blok ofert promowanych. Zastanowić się czy wchodzić w szczegóły - dla branży
 
 @Component
-public class GoldenLineDataCollector extends DataCollectorSettings {
+public class GoldenLineScrapper extends DataCollectorSettings {
 
     @Autowired
     GoldenLineService goldenLineService;
 
-    private static final Logger log = LoggerFactory.getLogger(GoldenLineDataCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(GoldenLineScrapper.class);
 
     /**
      * Collects links to all websites with offers from the portal "goldenline.pl".

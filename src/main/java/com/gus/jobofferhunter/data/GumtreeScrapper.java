@@ -14,12 +14,12 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class GumtreeCollector extends DataCollectorSettings {
+public class GumtreeScrapper extends DataCollectorSettings {
 
     @Autowired
     GumtreeService gumtreeService;
 
-    private static final Logger log = LoggerFactory.getLogger(GumtreeCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(GumtreeScrapper.class);
 
     private String findLastPaginationAdress() throws Exception {
         Document paginationPage = Jsoup.connect("https://www.gumtree.pl/s-oferty-pracy/v1c8p1")

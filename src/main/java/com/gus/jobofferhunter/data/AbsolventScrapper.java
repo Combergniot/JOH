@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AbsolventCollector extends DataCollectorSettings {
+public class AbsolventScrapper extends DataCollectorSettings {
 
     @Autowired
     AbsolventService absolventService;

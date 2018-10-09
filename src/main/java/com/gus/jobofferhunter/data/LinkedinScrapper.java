@@ -16,12 +16,12 @@ import java.util.List;
 //TODO - https://developer.linkedin.com/docs/rest-api - sprawdzić
 
 @Component
-public class LinkedinDataCollector extends DataCollectorSettings {
+public class LinkedinScrapper extends DataCollectorSettings {
 
     @Autowired
     LinkedinService linkedinService;
 
-    private static final Logger log = LoggerFactory.getLogger(LinkedinDataCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(LinkedinScrapper.class);
 
     /**
      * Collects links to all websites with offers from the portal "https://pl.linkedin.com/jobs/".

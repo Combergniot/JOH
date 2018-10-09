@@ -1,7 +1,5 @@
 package com.gus.jobofferhunter.model.offer;
 
-// TODO - ok. 17 tys - https://www.gumtree.pl/s-oferty-pracy/
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

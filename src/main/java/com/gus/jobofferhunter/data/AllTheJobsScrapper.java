@@ -15,12 +15,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Component
-public class AllTheJobsCollector extends DataCollectorSettings {
+public class AllTheJobsScrapper extends DataCollectorSettings {
 
     @Autowired
     AllTheJobsService allTheJobsService;
 
-    private static final Logger log = LoggerFactory.getLogger(AllTheJobsCollector.class);
+    private static final Logger log = LoggerFactory.getLogger(AllTheJobsScrapper.class);
 
     private int findLastPaginationNumber() throws IOException {
         Document document = Jsoup.connect("https://allthejobs.pl/praca/")
