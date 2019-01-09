@@ -44,7 +44,6 @@ public class LinguaJobScrapper extends DataCollectorSettings {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < paginationList.size(); i++) {
             Document singleOffer = connectWith(paginationList.get(i));
-
             Elements jobOfferTable = singleOffer.select("div#ogloszenia");
             Elements singleOfferBox = jobOfferTable.select("div.ogloszenie");
             for (Element element : singleOfferBox) {
@@ -65,6 +64,7 @@ public class LinguaJobScrapper extends DataCollectorSettings {
             log.info("All data from the LinguaJob has been downloaded");
         }
     }
+
 
     private String searchForUrl(Element element) {
         String url = element.select("div.right>a").attr("abs:href");

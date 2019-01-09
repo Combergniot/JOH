@@ -2,7 +2,6 @@ package com.gus.jobofferhunter.data;
 
 import com.gus.jobofferhunter.model.offer.JobSwype;
 import com.gus.jobofferhunter.service.JobSwypeService;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -15,7 +14,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 
-//Disallow: /praca?title=*
 @Component
 public class JobSwypeScrapper extends DataCollectorSettings {
 
