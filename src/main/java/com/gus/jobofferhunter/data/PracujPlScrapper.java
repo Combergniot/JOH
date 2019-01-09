@@ -2,7 +2,6 @@ package com.gus.jobofferhunter.data;
 
 import com.gus.jobofferhunter.model.offer.PracujPl;
 import com.gus.jobofferhunter.service.PracujPlService;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -62,42 +61,37 @@ public class PracujPlScrapper extends DataCollectorSettings {
 //        System.out.println(paginationList.toString());
     }
 
-    // TODO: 2019-01-09 Pobiera tylko po 10 linków, z kazdej podstrony 
+    // TODO: 2019-01-09 Pobiera tylko po 10 linków, z kazdej podstrony - sprawdz
+
     /**
      * Collects links to all single offers from the portal "pracuj.pl".
      */
     public void collectLinks() throws Exception {
         log.info("The links to job offers are being downloaded...");
-//        for (int i = 0; i < paginationList.size(); i++) {
+        for (int i = 0; i < paginationList.size(); i++) {
 //                Thread.sleep(3000 + (long) Math.random() * 2000);
-        Document linkCollection = connectWith("https://www.pracuj.pl/praca?pn=100");
-        Elements content = linkCollection.select("ul.results__list-container");
-        Elements url = content.select("" +
-                "li.results__list-container-item>div");
-        for (Element element : url) {
-            String link = element
+            Document linkCollection = connectWith(paginationList.get(i));
+            Elements content = linkCollection.select("ul.results__list-container");
+            Elements url = content.select("" +
+                    "li.results__list-container-item>div");
+            for (Element element : url) {
+                String link = element
 //                    .select("div.offer__info>" +
 //                            "div.offer-details>" +
 //                            "div.offer-details__text>" +
 //                            "h3>" +
 //                            "a.offer-details__title-link")
-                    .select("a.offer-details__title-link")
-                    .attr("abs:href");
+                        .select("a.offer-details__title-link")
+                        .attr("abs:href");
 
-//            String alternativeLink = element
-//                    .select("div.offer-regions>ul>li>" +
-//                            "a.offer-regions__label")
-//                    .attr("abs:href");
-
-            if (link != null) {
-                jobOffersList.add(link);
-                log.info(link);
+                if (link != null) {
+                    jobOffersList.add(link);
+                    log.info(link);
+                }
             }
+            removeDuplicatesFromList();
+            log.info("Links to all job offers from pracuj.pl has been downloaded!");
         }
-
-//        removeDuplicatesFromList();
-        log.info("Number of offers: " + jobOffersList.size());
-        log.info("Links to all job offers from pracuj.pl has been downloaded!");
     }
 
     /**
