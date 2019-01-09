@@ -19,7 +19,7 @@ public class JobOfferHunterApplication implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
-        scrapper.downloadDataFromLinguaJob();
+        scrapper.downloadDataFromMoneyPl();
 
     }
 }

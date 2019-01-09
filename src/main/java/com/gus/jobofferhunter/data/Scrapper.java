@@ -137,7 +137,7 @@ public class Scrapper {
     }
 
     public void test() throws Exception {
-        pracujPlScrapper.collectLinks();
+        moneyPlScrapper.fillPaginationList();
     }
 
 
