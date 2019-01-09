@@ -2,7 +2,6 @@ package com.gus.jobofferhunter.data;
 
 import com.gus.jobofferhunter.model.offer.JobsPl;
 import com.gus.jobofferhunter.service.JobsPlService;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

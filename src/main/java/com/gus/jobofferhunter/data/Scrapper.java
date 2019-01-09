@@ -136,9 +136,9 @@ public class Scrapper {
         pracaTobieScrapper.collectData();
     }
 
-    public void test() throws Exception {
-        moneyPlScrapper.fillPaginationList();
-    }
+//    public void test() throws Exception {
+//        olxScrapper.findLastPaginationNumber();
+//    }
 
 
 }

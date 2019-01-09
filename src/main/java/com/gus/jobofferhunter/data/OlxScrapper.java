@@ -2,7 +2,6 @@ package com.gus.jobofferhunter.data;
 
 import com.gus.jobofferhunter.model.offer.Olx;
 import com.gus.jobofferhunter.service.OlxService;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -11,7 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class OlxScrapper extends DataCollectorSettings {
@@ -20,6 +24,7 @@ public class OlxScrapper extends DataCollectorSettings {
     OlxService olxService;
 
     private static final Logger log = LoggerFactory.getLogger(OlxScrapper.class);
+    private  List<String> paginationBranchList = new ArrayList<>();
 
     /**
      * Collects links to all websites with offers from the portal "olx.pl".
@@ -40,20 +45,49 @@ public class OlxScrapper extends DataCollectorSettings {
         log.info("Page structure downloaded!");
     }
 
+    private Map<String, String> createBranchList() throws IOException {
+        Map<String, String> branchMap = new HashMap<>();
+        Document document = connectWith("https://www.olx.pl/praca/");
+        Elements branchLinks = document.select("div.inner>ul>li");
+        for (Element element: branchLinks
+             ) {
+            String key = element.select("a.topLink.tdnone").text();
+            String value = element.select("a.topLink.tdnone").attr("abs:href");
+            branchMap.put(key, value);
+        }
+        return branchMap;
+    }
+
+//Todo - wykorzystaj klucz branzy
+    private void fillBranchList() throws Exception {
+        Map<String, String> branchMap = createBranchList();
+            for (Map.Entry<String, String> entry : branchMap.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Document document = connectWith(value);
+            int lastPaginationNumber = Integer.valueOf(document.select("div.pager.rel.clr>span.item.fleft").last().text());
+//            System.out.println(lastPaginationNumber + " " + key + " " + value);
+            for (int i = 1; i <= lastPaginationNumber; i++) {
+                paginationBranchList.add(value + "?page=" + i);
+            }
+//                System.out.println(paginationBranchList.toString());
+        }
+    }
+
     /**
      * Collects links to all single offers from the portal "www.olx.pl/praca".
      */
     public void collectLinks() throws Exception {
         log.info("The links to job offers are being downloaded...");
-        for (int i = 0; i < paginationList.size(); i++) {
-            Document linkCollection = connectWith(paginationList.get(i));
-            Element content = linkCollection.getElementById("offers_table");
-            Elements url = content.select("a.link");
+        for (int i = 0; i < paginationBranchList.size(); i++) {
+            Document linkCollection = connectWith(paginationBranchList.get(i));
+            Elements content = linkCollection.select("tr.wrap");
+            Elements url = content.select("h3.lheight22.margintop5>a");
             for (Element element : url) {
                 String link = element.attr("href");
                 jobOffersList.add(link);
             }
-//            System.out.println(jobOffersList.get(i));
+           log.info(jobOffersList.get(i));
         }
         removeDuplicatesFromList();
         log.info("Links to all job offers has been downloaded!");
@@ -127,7 +161,8 @@ public class OlxScrapper extends DataCollectorSettings {
     }
 
     public void downloadAll() throws Exception {
-        collectStructure();
+//        collectStructure();
+        fillBranchList();
         collectLinks();
         collectData();
     }

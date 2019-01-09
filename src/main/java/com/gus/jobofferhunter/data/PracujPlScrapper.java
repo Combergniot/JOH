@@ -43,7 +43,6 @@ public class PracujPlScrapper extends DataCollectorSettings {
     private String findLastPaginationNumber() throws Exception {
         Document paginationPage = connectWith("https://www.pracuj.pl/praca");
         Elements pagination = paginationPage
-//                .select("ul.desktopPagin.clearfix>li>a.desktopPagin_item_link");
                 .select("ul.pagination_list>li>a.pagination_trigger");
         if (pagination.size() > 2) {
             String lastPaginationNumber = pagination.get(3).text();
@@ -62,7 +61,6 @@ public class PracujPlScrapper extends DataCollectorSettings {
     }
 
     // TODO: 2019-01-09 Pobiera tylko po 10 linków, z kazdej podstrony - sprawdz
-
     /**
      * Collects links to all single offers from the portal "pracuj.pl".
      */
@@ -124,7 +122,6 @@ public class PracujPlScrapper extends DataCollectorSettings {
             pracujPl.setWebPage("pracuj.pl");
             pracujPlService.save(pracujPl);
             log.info("The data from single offer was downloaded...");
-
         }
         log.info("All data from the pracuj.pl has been downloaded");
     }
@@ -204,7 +201,6 @@ public class PracujPlScrapper extends DataCollectorSettings {
         }
     }
 
-    //TODO - alternatywa dla ofert, które nie mają skryptu w div.content 6 ofert na 50tys.
     private String searchForDataBranchAlt(Element element) {
         try {
             String script = element.getElementsByTag("script")
@@ -272,9 +268,6 @@ public class PracujPlScrapper extends DataCollectorSettings {
         return emploLink;
     }
 
-    //TODO - alternatywą jest pobieranie ID z URL, hash-mapa zamiast listy? Problem z ofertami wyróżnionymi
-    // 11 pozycji na 47 tys. ofert ma inny skrypt...
-    //  pobieraj ostatnie 7 znaków z linku i będzie działać...
     private String searchForDataId(Element element) {
         try {
             String script = element.getElementsByTag("script")
@@ -294,8 +287,7 @@ public class PracujPlScrapper extends DataCollectorSettings {
         }
     }
 
-    //TODO - wyjdź z div.content
-    private String searchForDataIdAlt(Element element) {
+      private String searchForDataIdAlt(Element element) {
         try {
             String scriptAlt = element
                     .select("div.main")
