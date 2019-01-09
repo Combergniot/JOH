@@ -13,4 +13,6 @@ public class JobOfferHunterApplicationTests {
 	public void contextLoads() {
 	}
 
+
+
 }

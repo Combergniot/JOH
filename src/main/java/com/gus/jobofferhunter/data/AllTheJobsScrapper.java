@@ -23,13 +23,7 @@ public class AllTheJobsScrapper extends DataCollectorSettings {
     private static final Logger log = LoggerFactory.getLogger(AllTheJobsScrapper.class);
 
     private int findLastPaginationNumber() throws IOException {
-        Document document = Jsoup.connect("https://allthejobs.pl/praca/")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
+        Document document = connectWith("https://allthejobs.pl/praca/");
         String searchedNumber =
                 document.select("h1.margin-top-xs.margin-bottom-lg.text-weight-normal>span.badge.badge-info").text();
         int lastPaginationNumber = Integer.parseInt(searchedNumber) / 25;
@@ -48,13 +42,7 @@ public class AllTheJobsScrapper extends DataCollectorSettings {
     public void collectLinks() throws Exception {
         fillPaginationList();
         for (int i = 0; i < paginationList.size(); i++) {
-            Document linkCollection = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
+            Document linkCollection = connectWith(paginationList.get(i));
             Elements content = linkCollection.select("div.module");
             Elements url = content.select("li.relative");
             for (Element element : url) {
@@ -73,13 +61,7 @@ public class AllTheJobsScrapper extends DataCollectorSettings {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < jobOffersList.size(); i++) {
 //            Thread.sleep(2000 + (long) Math.random() * 2000);
-            Document singleOffer = Jsoup.connect(jobOffersList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(false)
-                    .get();
+            Document singleOffer = connectWith(jobOffersList.get(i));
             AllTheJobs allTheJobs = new AllTheJobs();
             Elements content = singleOffer.select("div#offer_main_info");
             for (Element element : content) {
@@ -104,13 +86,7 @@ public class AllTheJobsScrapper extends DataCollectorSettings {
     }
 
     public void test() throws Exception {
-        Document singleOffer = Jsoup.connect("https://allthejobs.pl/praca/specjalista-ds-telefonicznej-rejestracji-szkod-gdansk-pomorskie,464487")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
+        Document singleOffer = connectWith("https://allthejobs.pl/praca/specjalista-ds-telefonicznej-rejestracji-szkod-gdansk-pomorskie,464487");
         AllTheJobs allTheJobs = new AllTheJobs();
         Elements content = singleOffer.select("div#offer_main_info");
         for (Element element : content) {

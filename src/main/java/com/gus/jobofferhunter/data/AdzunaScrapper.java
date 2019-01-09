@@ -31,18 +31,13 @@ public class AdzunaScrapper extends DataCollectorSettings {
 
     public void getSampleResponse() {
         try {
-            Document paginationPage = Jsoup.connect(
+            Document paginationPage =connectWith(
                     "http://api.adzuna.com/v1/api/jobs/pl/search/" +
-                            "1" +
-                            "?app_id=" + adzunaApiService.getApplicationId() +
-                            "&app_key=" + adzunaApiService.getApplicationKey() +
-                            "&results_per_page=1&content-type=text")
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
+                    "1" +
+                    "?app_id=" + adzunaApiService.getApplicationId() +
+                    "&app_key=" + adzunaApiService.getApplicationKey() +
+                    "&results_per_page=1&content-type=text");
+
             String content = paginationPage.text();
             System.out.println(content);
         } catch (IOException e) {
@@ -51,30 +46,18 @@ public class AdzunaScrapper extends DataCollectorSettings {
     }
 
     public void getCategories() throws IOException {
-        Document paginationPage = Jsoup.connect(
+        Document paginationPage = connectWith(
                 "http://api.adzuna.com/v1/api/jobs/pl/" +
-                        "categories" +
-                        "?app_id=" + adzunaApiService.getApplicationId() +
-                        "&app_key=" + adzunaApiService.getApplicationKey() +
-                        "&&content-type=text")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
+                "categories" +
+                "?app_id=" + adzunaApiService.getApplicationId() +
+                "&app_key=" + adzunaApiService.getApplicationKey() +
+                "&&content-type=text");
         String content = paginationPage.text();
         System.out.println(content);
     }
 
     private String findLastPaginationNumber() throws Exception {
-        Document paginationPage = Jsoup.connect("https://www.adzuna.pl/search?w=Polska")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
+        Document paginationPage = connectWith("https://www.adzuna.pl/search?w=Polska");
 
         Elements pagination = paginationPage
                 .select("table.pg>tbody>tr>td");
@@ -95,14 +78,8 @@ public class AdzunaScrapper extends DataCollectorSettings {
         fillPaginationList();
         log.info("The data downloading is in progress...");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document singleOffer = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+            Document singleOffer = connectWith(paginationList.get(i));
+
             Elements jobOfferTable = singleOffer.select("div.sr");
             Elements singleOfferBox = jobOfferTable.select("div.a");
             for (Element element : singleOfferBox) {

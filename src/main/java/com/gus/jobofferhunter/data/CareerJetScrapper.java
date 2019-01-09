@@ -28,13 +28,7 @@ public class CareerJetScrapper extends DataCollectorSettings{
         log.info("The page structure is being downloaded...");
         paginationList.add("https://www.careerjet.pl/szukaj/oferty_pracy?s=&l=");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document paginationPage = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
+            Document paginationPage = connectWith(paginationList.get(i));
             Element pagination = paginationPage
                     .select("p.browse.new_browse >a").last();
                 String url = pagination.attr("abs:href");

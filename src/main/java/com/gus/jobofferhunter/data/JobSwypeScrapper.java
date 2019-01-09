@@ -25,15 +25,7 @@ public class JobSwypeScrapper extends DataCollectorSettings {
     private static final Logger log = LoggerFactory.getLogger(JobSwype.class);
 
     private int findLastPaginationNumber() throws IOException {
-        Document navbar = Jsoup
-                .connect("https://www.jobswype.pl/praca?title=&location=&radius=0&sorting=&display=&page=")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .ignoreHttpErrors(true)
-                .followRedirects(true)
-                .get();
+        Document navbar = connectWith("https://www.jobswype.pl/praca?title=&location=&radius=0&sorting=&display=&page=");
         String element = navbar.select("p.text-center.small").text();
         String corrections =
                 element
@@ -57,14 +49,8 @@ public class JobSwypeScrapper extends DataCollectorSettings {
         fillPaginationList();
         for (int i = 0; i < paginationList.size(); i++) {
             Thread.sleep(3000 + (long) Math.random() * 2000);
-            Document singleOffer = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+            Document singleOffer = connectWith(paginationList.get(i));
+
             Elements content = singleOffer.select("div#content>div.job.card.mb-1");
             for (Element element : content) {
                 JobSwype jobSwype = new JobSwype();

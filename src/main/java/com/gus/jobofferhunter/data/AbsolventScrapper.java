@@ -22,13 +22,7 @@ public class AbsolventScrapper extends DataCollectorSettings {
     public void collectStructure() throws Exception {
         log.info("The page structure is being downloaded...");
 
-        Document paginationPage = Jsoup
-                .connect("https://www.absolvent.pl/oferty-pracy?p=2&jt=praca-praktyka-staz&pp=15")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .get();
+        Document paginationPage = connectWith("https://www.absolvent.pl/oferty-pracy?p=2&jt=praca-praktyka-staz&pp=15");
 
         System.out.println(paginationPage.select("div.main").text());
 

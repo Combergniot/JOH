@@ -28,12 +28,7 @@ public class OlxScrapper extends DataCollectorSettings {
         log.info("The page structure is being downloaded...");
         paginationList.add("https://www.olx.pl/praca/");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document paginationPage = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .get();
+            Document paginationPage = connectWith(paginationList.get(i));
             Elements pagination = paginationPage.select("span.fbold.next.abs.large>a.link");
             for (Element e : pagination) {
                 String url = e.attr("abs:href");
@@ -51,14 +46,7 @@ public class OlxScrapper extends DataCollectorSettings {
     public void collectLinks() throws Exception {
         log.info("The links to job offers are being downloaded...");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document linkCollection = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
-
+            Document linkCollection = connectWith(paginationList.get(i));
             Element content = linkCollection.getElementById("offers_table");
             Elements url = content.select("a.link");
             for (Element element : url) {
@@ -77,14 +65,7 @@ public class OlxScrapper extends DataCollectorSettings {
     public void collectData() throws Exception {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < jobOffersList.size(); i++) {
-            Document singleOffer = Jsoup.connect(jobOffersList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+            Document singleOffer = connectWith(jobOffersList.get(i));
 
             Olx olx = new Olx();
             Elements titleBox = singleOffer.select("div.offer-titlebox");
@@ -117,14 +98,7 @@ public class OlxScrapper extends DataCollectorSettings {
 
     public void test() throws Exception {
         log.info("The data downloading is in progress...");
-        Document singleOffer = Jsoup.connect("https://www.olx.pl/oferta/kierownik-zmiany-CID4-IDrJtmP.html#e883c731b3")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .ignoreHttpErrors(true)
-                .followRedirects(true)
-                .get();
+        Document singleOffer = connectWith("https://www.olx.pl/oferta/kierownik-zmiany-CID4-IDrJtmP.html#e883c731b3");
 
         Olx olx = new Olx();
         Elements titleBox = singleOffer.select("div.offer-titlebox");
@@ -134,7 +108,7 @@ public class OlxScrapper extends DataCollectorSettings {
             olx.setDatePublished(searchForDatePublished(element));
             olx.setHourPublished(searchForHourPublished(element));
             olx.setAdId(searchForAdId(element));
-           }
+        }
         Elements offersParameter = singleOffer.select("ul.offer-parameters");
         for (Element element : offersParameter) {
             olx.setFormOfEmployment(searchForFormOfEmployment(element));
@@ -152,7 +126,7 @@ public class OlxScrapper extends DataCollectorSettings {
         log.info("The data from single offer was downloaded...");
     }
 
-    public void downloadAll() throws Exception{
+    public void downloadAll() throws Exception {
         collectStructure();
         collectLinks();
         collectData();
@@ -182,34 +156,34 @@ public class OlxScrapper extends DataCollectorSettings {
         return advertiser;
     }
 
-    private String searchForPosition (Element element){
+    private String searchForPosition(Element element) {
         String position = element.select("h1").text();
         return position;
     }
 
-    private String searchForWorkplace (Element element){
+    private String searchForWorkplace(Element element) {
         String workplace = element.select("strong").text();
         return workplace;
     }
 
-    private String searchForDatePublished (Element element){
+    private String searchForDatePublished(Element element) {
         String dateInfoBox = element.select("em").text();
-        String datePublished = dateInfoBox.substring(dateInfoBox.indexOf(",") +2, dateInfoBox.length()-26);
-        return  datePublished;
-   }
+        String datePublished = dateInfoBox.substring(dateInfoBox.indexOf(",") + 2, dateInfoBox.length() - 26);
+        return datePublished;
+    }
 
-   private String searchForHourPublished (Element element){
-       try {
-           String dateInfoBox = element.select("em").text();
-           String hourPublished = dateInfoBox.substring(9,dateInfoBox.indexOf(","));
-           return  hourPublished;
-       } catch (Exception e) {
-           e.printStackTrace();
-           return "Do poprawki";
-       }
-   }
+    private String searchForHourPublished(Element element) {
+        try {
+            String dateInfoBox = element.select("em").text();
+            String hourPublished = dateInfoBox.substring(9, dateInfoBox.indexOf(","));
+            return hourPublished;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Do poprawki";
+        }
+    }
 
-    private String searchForAdId (Element element){
+    private String searchForAdId(Element element) {
         String idBox = element.select("em>small").text();
         String adId = idBox.substring(15);
         return adId;

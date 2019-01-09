@@ -136,6 +136,9 @@ public class Scrapper {
         pracaTobieScrapper.collectData();
     }
 
+    public void test() throws Exception {
+        pracujPlScrapper.collectLinks();
+    }
 
 
 }

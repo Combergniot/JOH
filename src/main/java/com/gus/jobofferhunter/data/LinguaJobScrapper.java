@@ -22,13 +22,7 @@ public class LinguaJobScrapper extends DataCollectorSettings {
     private static final Logger log = LoggerFactory.getLogger(LinguaJob.class);
 
     private String findLastPaginationNumber() throws Exception {
-        Document paginationPage = Jsoup.connect("http://www.linguajob.pl/szukaj/?p=1")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
+        Document paginationPage = connectWith("http://www.linguajob.pl/szukaj/?p=1");
 
         Elements pagination = paginationPage
                 .select("div.strony");
@@ -49,14 +43,8 @@ public class LinguaJobScrapper extends DataCollectorSettings {
         fillPaginationList();
         log.info("The data downloading is in progress...");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document singleOffer = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+            Document singleOffer = connectWith(paginationList.get(i));
+
             Elements jobOfferTable = singleOffer.select("div#ogloszenia");
             Elements singleOfferBox = jobOfferTable.select("div.ogloszenie");
             for (Element element : singleOfferBox) {

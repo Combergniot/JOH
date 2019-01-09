@@ -32,6 +32,7 @@ public class Gumtree extends JobOffer{
     @Lob
     private String url;
 
+
     public Gumtree() {
     }
 
