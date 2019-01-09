@@ -28,14 +28,8 @@ public class MoneyPlScrapper extends DataCollectorSettings {
         log.info("The page structure is being downloaded...");
         paginationList.add("https://praca.money.pl/oferty,pracy,wyszukaj,0.html?slowo=&zawod=&wojewodztwo=&okres=");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document paginationPage = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+            Document paginationPage = connectWith(paginationList.get(i));
+
             Elements pagination = paginationPage.select("a.next");
             for (Element e : pagination) {
                 String url = e.attr("abs:href");
@@ -52,14 +46,8 @@ public class MoneyPlScrapper extends DataCollectorSettings {
     public void collectData() throws Exception {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document singleOffer = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+            Document singleOffer = connectWith(paginationList.get(i));
+
             Elements jobOfferTable = singleOffer.select("table.lista-ofert");
             Elements singleOfferBox = jobOfferTable.select("tr");
             for (Element element : singleOfferBox) {

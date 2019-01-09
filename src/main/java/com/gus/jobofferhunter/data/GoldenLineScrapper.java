@@ -35,13 +35,7 @@ public class GoldenLineScrapper extends DataCollectorSettings {
         paginationList.add("https://www.goldenline.pl/praca/szukaj");
         for (int i = 0; i < paginationList.size(); i++) {
             Thread.sleep(4000 + (long) Math.random() * 3000);
-            Document paginationPage = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
+            Document paginationPage = connectWith(paginationList.get(i));
             Elements pagination = paginationPage.select(".list-unstyled >li.next >a");
             for (Element e : pagination) {
                 String url = e.attr("abs:href");
@@ -57,15 +51,8 @@ public class GoldenLineScrapper extends DataCollectorSettings {
             Thread.sleep(3000 + (long) Math.random() * 2000);
             Document singleOffer = null;
             try {
-                singleOffer = Jsoup
-                        .connect("https://www.goldenline.pl/praca/szukaj" + counter)
-                        .proxy("10.51.55.34", 8080)
-                        .userAgent(USER_AGENT)
-                        .referrer(REFERRER)
-                        .timeout(12000)
-                        .ignoreHttpErrors(true)
-                        .followRedirects(true)
-                        .get();
+                singleOffer = connectWith("https://www.goldenline.pl/praca/szukaj" + counter);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

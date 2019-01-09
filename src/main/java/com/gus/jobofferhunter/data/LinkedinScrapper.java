@@ -31,14 +31,7 @@ public class LinkedinScrapper extends DataCollectorSettings {
         List<String> paginationList = new ArrayList<>();
         paginationList.add("https://pl.linkedin.com/jobs/view-all");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document paginationPage = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+            Document paginationPage = connectWith(paginationList.get(i));
             Elements pagination = paginationPage.select("div.search-results-pagination");
             for (Element e : pagination) {
                 String url = pagination

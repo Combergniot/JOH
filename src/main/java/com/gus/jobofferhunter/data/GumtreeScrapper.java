@@ -22,14 +22,7 @@ public class GumtreeScrapper extends DataCollectorSettings {
     private static final Logger log = LoggerFactory.getLogger(GumtreeScrapper.class);
 
     private String findLastPaginationAdress() throws Exception {
-        Document paginationPage = Jsoup.connect("https://www.gumtree.pl/s-oferty-pracy/v1c8p1")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
-
+        Document paginationPage = connectWith("https://www.gumtree.pl/s-oferty-pracy/v1c8p1");
         Elements pagination = paginationPage
                 .select("div.pagination");
         String lastPaginationAdress = pagination.select("a.last.follows").attr("abs:href");
@@ -38,13 +31,7 @@ public class GumtreeScrapper extends DataCollectorSettings {
     }
 
     private String findLastPaginationNumber() throws Exception {
-        Document lastPaginationPage = Jsoup.connect(findLastPaginationAdress())
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
+        Document lastPaginationPage = connectWith(findLastPaginationAdress());
         String lastPaginationNumber = lastPaginationPage.select("span.current").text();
         return lastPaginationNumber;
     }
@@ -62,13 +49,7 @@ public class GumtreeScrapper extends DataCollectorSettings {
         log.info("The links to job offers are being downloaded...");
         fillPaginationList();
         for (int i = 0; i < paginationList.size(); i++) {
-            Document linkCollection = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
+            Document linkCollection = connectWith(paginationList.get(i));
             Elements content = linkCollection.select("div.view>ul");
             Elements url = content.select("div.container");
             for (Element element : url) {
@@ -85,13 +66,7 @@ public class GumtreeScrapper extends DataCollectorSettings {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < jobOffersList.size(); i++) {
 //            Thread.sleep(2000 + (long) Math.random() * 3000);
-            Document singleOffer = Jsoup.connect(jobOffersList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
+            Document singleOffer = connectWith(jobOffersList.get(i));
             Gumtree gumtree = new Gumtree();
             Elements content = singleOffer.select("ul.selMenu");
             for (Element element : content) {
@@ -116,13 +91,7 @@ public class GumtreeScrapper extends DataCollectorSettings {
     }
 
     public void test() throws Exception {
-        Document singleOffer = Jsoup.connect("https://www.gumtree.pl/a-praca-na-produkcji/wolomin/pracownik-produkcji/1002334877370910475604809")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
+        Document singleOffer = connectWith("https://www.gumtree.pl/a-praca-na-produkcji/wolomin/pracownik-produkcji/1002334877370910475604809");
         Gumtree gumtree = new Gumtree();
         Elements content = singleOffer.select("ul.selMenu");
         for (Element element : content) {

@@ -29,13 +29,7 @@ public class JobsPlScrapper extends DataCollectorSettings {
      * Collects links to all websites with offers from the portal "jobs.pl".
      */
     private void collectBranchStructure() throws Exception {
-        Document paginationPage = Jsoup.connect("https://www.jobs.pl/")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
+        Document paginationPage = connectWith("https://www.jobs.pl/");
         Elements pagination = paginationPage
                 .select("div.category-container >a.single-category");
         for (Element e : pagination) {
@@ -51,13 +45,8 @@ public class JobsPlScrapper extends DataCollectorSettings {
 //        paginationList.addAll(branchTree.values());
         paginationList.add("https://www.jobs.pl/oferty");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document paginationPage = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
+            Document paginationPage = connectWith(paginationList.get(i));
+
             Elements pagination = paginationPage.select("div.pagination > p >a.next");
             for (Element e : pagination) {
                 String url = e.attr("abs:href");
@@ -69,14 +58,7 @@ public class JobsPlScrapper extends DataCollectorSettings {
     }
 
     private String findLastPaginationNumber() throws Exception {
-        Document paginationPage = Jsoup.connect("https://www.jobs.pl/oferty")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
-
+        Document paginationPage = connectWith("https://www.jobs.pl/oferty");
         Elements pagination = paginationPage
                 .select("div.pagination >p");
         String lastPaginationNumber = pagination.select("span.empty").next().text();
@@ -98,14 +80,7 @@ public class JobsPlScrapper extends DataCollectorSettings {
     private void collectData() throws Exception {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document singleOffer = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+            Document singleOffer = connectWith(paginationList.get(i));
             Elements jobOfferList = singleOffer
                     .select("div.offer-list");
             Elements singleOfferBox = jobOfferList
@@ -131,22 +106,14 @@ public class JobsPlScrapper extends DataCollectorSettings {
     /**
      * Alternative method for collecting data from jobs.pl in case Proxy 502 Error.
      */
-
     public void collectTestData() throws Exception {
         log.info("The data downloading is in progress...");
         for (int counter = 1; counter < 4067; counter++) {
             Thread.sleep(3000+(long)Math.random()*4000);
             Document singleOffer = null;
             try {
-                singleOffer = Jsoup
-                        .connect("https://www.jobs.pl/oferty/p-" + counter)
-                        .proxy("10.51.55.34", 8080)
-                        .userAgent(USER_AGENT)
-                        .referrer(REFERRER)
-                        .timeout(12000)
-                        .ignoreHttpErrors(true)
-                        .followRedirects(true)
-                        .get();
+                singleOffer = connectWith("https://www.jobs.pl/oferty/p-" + counter);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -173,14 +140,7 @@ public class JobsPlScrapper extends DataCollectorSettings {
 
     public void test() throws Exception {
         log.info("The data downloading is in progress...");
-        Document singleOffer = Jsoup.connect("https://www.jobs.pl/oferty/prawo/p-13")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .ignoreHttpErrors(true)
-                .followRedirects(true)
-                .get();
+        Document singleOffer = connectWith("https://www.jobs.pl/oferty/prawo/p-13");
         Elements jobOfferList = singleOffer.select("div.offer-list");
         Elements singleOfferBox = jobOfferList.select("div.offer > div.details");
         for (Element element : singleOfferBox) {

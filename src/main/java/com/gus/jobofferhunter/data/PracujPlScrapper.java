@@ -28,14 +28,7 @@ public class PracujPlScrapper extends DataCollectorSettings {
         log.info("The page structure is being downloaded...");
         paginationList.add("https://www.pracuj.pl/praca");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document paginationPage = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
-
+            Document paginationPage = connectWith(paginationList.get(i));
             Elements pagination = paginationPage
                     .select("ul.desktopPagin.clearfix >li >a.desktopPagin_item_link:contains(Następna)");
             for (Element e : pagination) {
@@ -49,18 +42,12 @@ public class PracujPlScrapper extends DataCollectorSettings {
     }
 
     private String findLastPaginationNumber() throws Exception {
-        Document paginationPage = Jsoup.connect("https://www.pracuj.pl/praca")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
-
+        Document paginationPage = connectWith("https://www.pracuj.pl/praca");
         Elements pagination = paginationPage
-                .select("ul.desktopPagin.clearfix>li>a.desktopPagin_item_link");
+//                .select("ul.desktopPagin.clearfix>li>a.desktopPagin_item_link");
+                .select("ul.pagination_list>li>a.pagination_trigger");
         if (pagination.size() > 2) {
-            String lastPaginationNumber = pagination.get(2).text();
+            String lastPaginationNumber = pagination.get(3).text();
             System.out.println(lastPaginationNumber);
             return lastPaginationNumber;
         }
@@ -72,34 +59,44 @@ public class PracujPlScrapper extends DataCollectorSettings {
         for (int i = 1; i <= lastPaginationNumber; i++) {
             paginationList.add("https://www.pracuj.pl/praca?pn=" + i);
         }
-        System.out.println(paginationList.toString());
+//        System.out.println(paginationList.toString());
     }
 
+    // TODO: 2019-01-09 Pobiera tylko po 10 linków, z kazdej podstrony 
     /**
      * Collects links to all single offers from the portal "pracuj.pl".
      */
     public void collectLinks() throws Exception {
         log.info("The links to job offers are being downloaded...");
-            for (int i = 0; i < paginationList.size(); i++) {
+//        for (int i = 0; i < paginationList.size(); i++) {
 //                Thread.sleep(3000 + (long) Math.random() * 2000);
-            Document linkCollection = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
-            Elements content = linkCollection.select("ul#mainOfferList");
-            Elements url = content.select("li.o-list_item");
-            for (Element element : url) {
-                String link = element
-                        .select("a.o-list_item_link_name")
-                        .attr("abs:href");
+        Document linkCollection = connectWith("https://www.pracuj.pl/praca?pn=100");
+        Elements content = linkCollection.select("ul.results__list-container");
+        Elements url = content.select("" +
+                "li.results__list-container-item>div");
+        for (Element element : url) {
+            String link = element
+//                    .select("div.offer__info>" +
+//                            "div.offer-details>" +
+//                            "div.offer-details__text>" +
+//                            "h3>" +
+//                            "a.offer-details__title-link")
+                    .select("a.offer-details__title-link")
+                    .attr("abs:href");
+
+//            String alternativeLink = element
+//                    .select("div.offer-regions>ul>li>" +
+//                            "a.offer-regions__label")
+//                    .attr("abs:href");
+
+            if (link != null) {
                 jobOffersList.add(link);
-                System.out.println(link);
+                log.info(link);
             }
         }
-        removeDuplicatesFromList();
+
+//        removeDuplicatesFromList();
+        log.info("Number of offers: " + jobOffersList.size());
         log.info("Links to all job offers from pracuj.pl has been downloaded!");
     }
 
@@ -109,15 +106,8 @@ public class PracujPlScrapper extends DataCollectorSettings {
     public void collectData() throws Exception {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < jobOffersList.size(); i++) {
-    //        Thread.sleep(3000 + (long) Math.random() * 2000);
-            Document singleOffer = Jsoup.connect(jobOffersList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+//                    Thread.sleep(3000 + (long) Math.random() * 2000);
+            Document singleOffer = connectWith(jobOffersList.get(i));
             PracujPl pracujPl = new PracujPl();
             Elements applyBox = singleOffer.select("div.apply");
             for (Element element : applyBox) {
@@ -158,15 +148,7 @@ public class PracujPlScrapper extends DataCollectorSettings {
 
     public void test() throws Exception {
         log.info("The data downloading is in progress...");
-        Document singleOffer =
-                Jsoup.connect("https://www.pracuj.pl/praca/zarzadca-administrator-nieruchomosci-wroclaw,oferta,6037657")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .ignoreHttpErrors(true)
-                .followRedirects(true)
-                .get();
+        Document singleOffer = connectWith("https://www.pracuj.pl/praca/junior-java-developer-warszawa,oferta,6551031?sug=SG_bd_5");
         PracujPl pracujPl = new PracujPl();
         Elements applyBox = singleOffer.select("div.apply");
         for (Element element : applyBox) {
@@ -194,8 +176,8 @@ public class PracujPlScrapper extends DataCollectorSettings {
     private String searchForRegion(Element element) {
         String workplace = searchForWorkplace(element);
         String region =
-                workplace.substring(workplace.lastIndexOf(",") + 1, workplace.length());
-        String correctRegion =region.replaceAll("\\s+","");
+                workplace.substring(workplace.lastIndexOf(",") + 1);
+        String correctRegion = region.replaceAll("\\s+", "");
         return correctRegion;
     }
 
@@ -215,7 +197,7 @@ public class PracujPlScrapper extends DataCollectorSettings {
 
     //  Błąd w zapisie słowa 'rozwój' na stronie np. Badania i rozwój, IT- rozwój oprogramowania
     private String searchForBranch(Element element) {
-            try {
+        try {
             String script = element.getElementsByTag("script")
                     .first().nextElementSibling().html();
             String branch = script.substring(script.indexOf("=") + 3, script.indexOf(";") - 1);
@@ -240,10 +222,10 @@ public class PracujPlScrapper extends DataCollectorSettings {
         } catch (NullPointerException e) {
             e.printStackTrace();
             return "Brak danych";
-        }catch (StringIndexOutOfBoundsException e){
+        } catch (StringIndexOutOfBoundsException e) {
             e.printStackTrace();
             return "Brak danych";
-        }finally {
+        } finally {
             return "Brak danych";
         }
     }
@@ -311,7 +293,7 @@ public class PracujPlScrapper extends DataCollectorSettings {
             return dataId;
         } catch (NullPointerException e) {
             return "Do poprawki";
-        } catch (StringIndexOutOfBoundsException e){
+        } catch (StringIndexOutOfBoundsException e) {
             return "Do poprawki";
         } finally {
             return "Brak danych";

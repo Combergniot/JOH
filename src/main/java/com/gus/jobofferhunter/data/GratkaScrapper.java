@@ -27,14 +27,7 @@ public class GratkaScrapper extends DataCollectorSettings {
 
     //TODO - split może powodować błedy
     private String findLastPaginationNumber() throws Exception {
-        Document paginationPage = Jsoup.connect("https://gratka.pl/praca")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .followRedirects(true)
-                .get();
-
+        Document paginationPage = connectWith("https://gratka.pl/praca");
         Elements pagination = paginationPage
                 .select("div.pagination");
         String lastPaginationNumber = pagination.select("span.pagination__separator").next().text();
@@ -59,14 +52,7 @@ public class GratkaScrapper extends DataCollectorSettings {
         log.info("The page structure is being downloaded...");
         paginationList.add("https://gratka.pl/praca");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document paginationPage = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+            Document paginationPage = connectWith(paginationList.get(i));
             Elements pagination = paginationPage.select("a.pagination__nextPage");
             String url = pagination.attr("abs:href");
             paginationList.add(url);
@@ -83,13 +69,7 @@ public class GratkaScrapper extends DataCollectorSettings {
         fillPaginationList();
         log.info("The links to job offers are being downloaded...");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document linkCollection = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
+            Document linkCollection = connectWith(paginationList.get(i));
 
             Element content = linkCollection.getElementById("leftColumn");
             Elements url = content.select("a.teaser");
@@ -111,14 +91,7 @@ public class GratkaScrapper extends DataCollectorSettings {
     public void collectData() throws Exception {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < jobOffersList.size(); i++) {
-            Document singleOffer = Jsoup.connect(jobOffersList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+            Document singleOffer = connectWith(jobOffersList.get(i));
             Elements mainTable = singleOffer.select("div#rightColumn");
             Gratka gratka = new Gratka();
             for (Element element : mainTable) {
@@ -144,14 +117,7 @@ public class GratkaScrapper extends DataCollectorSettings {
     }
 
     public void test() throws Exception {
-        Document singleOffer = Jsoup.connect("https://gratka.pl/praca/frezer-cnc-wynagrodzenie-nawet-5500-zl/ob/3671707")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .ignoreHttpErrors(true)
-                .followRedirects(true)
-                .get();
+        Document singleOffer = connectWith("https://gratka.pl/praca/frezer-cnc-wynagrodzenie-nawet-5500-zl/ob/3671707");
         Elements mainTable = singleOffer.select("div#rightColumn");
         Gratka gratka = new Gratka();
         for (Element element : mainTable) {

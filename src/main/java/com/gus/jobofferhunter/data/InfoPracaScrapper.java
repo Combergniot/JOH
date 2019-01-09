@@ -29,13 +29,7 @@ public class InfoPracaScrapper extends DataCollectorSettings {
         log.info("The page structure is being downloaded...");
         paginationList.add("https://www.infopraca.pl/praca?q=&lc=");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document paginationPage = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .followRedirects(true)
-                    .get();
+            Document paginationPage = connectWith(paginationList.get(i));
             Elements pagination = paginationPage
                     .select("ul.pagination li > a[title = Dalej]");
             for (Element element : pagination) {
@@ -49,14 +43,7 @@ public class InfoPracaScrapper extends DataCollectorSettings {
     }
 
     public void test() throws Exception {
-        Document singleOffer = Jsoup.connect("https://www.infopraca.pl/praca?sort=last_update&pg=200")
-                .proxy("10.51.55.34", 8080)
-                .userAgent(USER_AGENT)
-                .referrer(REFERRER)
-                .timeout(12000)
-                .ignoreHttpErrors(true)
-                .followRedirects(true)
-                .get();
+        Document singleOffer = connectWith("https://www.infopraca.pl/praca?sort=last_update&pg=200");
         Elements content = singleOffer.select("ul#results-list>li");
         for (Element element : content) {
             InfoPraca infoPraca = new InfoPraca();
@@ -75,14 +62,7 @@ public class InfoPracaScrapper extends DataCollectorSettings {
     public void collectData() throws Exception {
         log.info("The data downloading is in progress...");
         for (int i = 0; i < paginationList.size(); i++) {
-            Document singleOffer = Jsoup.connect(paginationList.get(i))
-                    .proxy("10.51.55.34", 8080)
-                    .userAgent(USER_AGENT)
-                    .referrer(REFERRER)
-                    .timeout(12000)
-                    .ignoreHttpErrors(true)
-                    .followRedirects(true)
-                    .get();
+            Document singleOffer = connectWith(paginationList.get(i));
             Elements content = singleOffer.select("ul#results-list>li");
             for (Element element : content) {
                 InfoPraca infoPraca = new InfoPraca();
